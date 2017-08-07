@@ -67,9 +67,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
             "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Set restricted umask for non-root users
-if [[ $EUID -ne 0 ]]; then
-  umask 007
-fi
+# if [[ $EUID -ne 0 ]]; then
+#   umask 007
+# fi
 
 # Do not expand all wildcards by default, only show menu listing matching patterns.
 setopt GLOB_COMPLETE
