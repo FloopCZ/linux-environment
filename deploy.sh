@@ -51,12 +51,12 @@ ln -srfv _vimrc ~/.vimrc
 # copy ideavim config
 ln -srfv _vimrc ~/.ideavimrc
 
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc
 ln -srfv _zprofile ~/.zprofile
-
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # copy tmux config
 ln -srfv _tmux.conf ~/.tmux.conf
