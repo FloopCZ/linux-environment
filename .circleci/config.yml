@@ -1,0 +1,44 @@
+version: 2
+
+references:
+
+  deploy: &deploy
+    run:
+      name: Deploy the environment.
+      command: |
+        ./deploy.sh
+
+jobs:
+
+  test_ubuntu_rolling:
+    docker:
+      - image: ubuntu:rolling
+    working_directory: ~/linux-environment
+    steps:
+      - checkout
+      - *deploy
+
+  test_archlinux:
+    docker:
+      - image: pritunl/archlinux
+    working_directory: ~/linux-environment
+    steps:
+      - checkout
+      - *deploy
+
+  test_fedora:
+    docker:
+      - image: fedora
+    working_directory: ~/linux-environment
+    steps:
+      - checkout
+      - *deploy
+
+workflows:
+
+  version: 2
+  test-matrix:
+    jobs:
+      - test_ubuntu_rolling
+      - test_archlinux
+      - test_fedora
