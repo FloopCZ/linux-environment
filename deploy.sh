@@ -13,12 +13,12 @@ elif hash yum 2>/dev/null; then
     pacman="yum install"
     sudo yum upgrade || true
     sudo yum groupinstall 'Development Tools' || true
-    sudo yum install vim zsh || true
+    sudo yum install neovim zsh || true
 elif hash apt-get 2>/dev/null; then
     pacman="apt-get install"
     sudo apt-get update || true
     sudo apt-get upgrade || true
-    sudo apt-get install build-essential vim zsh libpam-systemd || true
+    sudo apt-get install build-essential neovim zsh libpam-systemd || true
 else
     pacman=/bin/false
 fi
