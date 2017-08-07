@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 FILE CHECKSUM"
+  exit 1
+fi
+
+echo "$2 $1" | sha1sum -c -

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# A tool for strong compression of data for archiving purposes
+
+case "$1" in
+  c|-c|--compress)
+    shift
+    DEST="$1"
+    shift
+    tar --xattrs -cp "$@" | xz -9e > "$DEST"
+    ;;
+  x|-x|--extract)
+    shift
+    tar -xJf "$@"
+    ;;
+  *)
+    echo "Usage:"
+    echo "Extraction: archive -x FILES..."
+    echo "Compression: archive -c DESTINATION FILES..."
+    echo "Example:"
+    echo "archive -c my_archive.tar.xz file1.txt file2.txt"
+    ;;
+esac
+
+exit 0

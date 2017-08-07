@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Play a tone when there is no internet connection.
+
+until [ ]; do
+  ping -c 1 google.com || play -n synth 1 sin 435;
+  sleep 3
+done

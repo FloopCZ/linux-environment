@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup WEB
+
+[Service]
+Type=oneshot
+ExecStart=/home/USER/bin/backup-web SRCDIR SRCDB DBUSER DBPASS DSTDIR

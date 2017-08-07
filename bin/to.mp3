@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# A script to convert a audio files to mp3.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: to.mp3 FILE1 FILE2 ..."
+  exit 1
+fi
+
+for f in "$@"; do
+  echo "Converting $f:"
+  base="${f%.*}" # cut off an extension
+  vlc "$f" -I dummy --no-sout-video --sout-audio \
+    --sout="#transcode{acodec=mp3,ab=192,samplerate=44100}:std{access=file,mux=raw,dst=\"$base.mp3\"}" \
+    vlc://quit;
+  rm -v "$f"
+done

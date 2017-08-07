@@ -1,0 +1,34 @@
+#!/bin/sh
+
+wget \
+    --mirror \
+    --page-requisites \
+    --html-extension \
+    --restrict-file-names=windows \
+    --convert-links \
+    --waitretry=30 \
+    $1
+#    --random-wait \
+#    --wait=1 \
+#    --limit-rate=10k \
+#    --no-clobber \
+#    --domains website.org \
+#    --no-parent \
+
+#The options are:
+#--mirror: recursive mirroring with infinite depth
+#--domains website.org: don't follow links outside website.org.
+#--no-parent: don't follow links outside the directory tutorials/html/.
+#--page-requisites: get all the elements that compose the page
+#  (images, CSS and so on).
+#--html-extension: save files with the .html extension.
+#--convert-links: convert links so that they work locally, off-line.
+#--restrict-file-names=windows: modify filenames so that they will
+#  work in Windows as well.
+#--no-clobber: don't overwrite any existing files
+#  (used in case the download is interrupted and resumed).
+#--limit-rate: Limit download speed
+#--wait: wait n seconds between retrievals
+#--random-wait: wait between 0.5 to 1.5 seconds between retrievals
+#--waitretry: use linear backoff - wait 1 second after first failure,
+#  2 seconds after second ut to defined value

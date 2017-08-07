@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup DIR
+
+[Service]
+Type=oneshot
+ExecStart=/home/USER/bin/backup-dir SRCDIR DSTDIR

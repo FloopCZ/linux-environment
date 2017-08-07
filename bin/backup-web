@@ -1,0 +1,42 @@
+#!/bin/sh
+set -e
+
+# A utility that archives a folder and a database into a backup directory
+# and keeps only a few most recent backups.
+
+if [ $# -lt 5 ]; then
+  echo "Usage: $0 srcdir srcdb dbuser dbpass dstdir"
+  exit 1
+fi
+
+# files to backup
+srcdir="$1"
+# mysql database to dump
+dbsrc="-u$3 -p$4 $2"
+# destination directory
+dstdir="$5"
+# number of backups to keep
+keep=14
+
+# create the destination directory if it does not exist
+mkdir -p "$dstdir"
+
+# create a temporary directory
+tmpdir="`mktemp -d /tmp/web_backup.XXXXXXX`"
+
+# remove the temporary directory on exit
+function cleanup {
+  chmod -R ug+rw "$tmpdir"
+  rm -rf "$tmpdir"
+}
+trap cleanup EXIT
+
+# copy files to temp dir
+nice -n 20 cp --archive "$srcdir" "$tmpdir"
+# dump database to temp dir
+mysqldump "$dbsrc" > "$tmpdir"/db.sql
+# compress the temp dir to the destination dir
+nice -n 20 archive -c "$dstdir"/`date +"%Y%m%d%H%M"`_backup.tar.xz "$tmpdir"
+
+# remove old backups
+ls -1d "$dstdir"/* | head -n -"$keep" | xargs --no-run-if-empty rm

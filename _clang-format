@@ -1,0 +1,29 @@
+---
+DisableFormat: false
+Language: Cpp
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -4
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeBraces: Stroustrup
+BreakConstructorInitializersBeforeComma: true
+BreakStringLiterals: true
+ColumnLimit: 100
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+IndentCaseLabels: false
+IndentWidth: 4
+NamespaceIndentation: None
+PenaltyReturnTypeOnItsOwnLine: 80
+PointerAlignment: Left
+# SpaceAfterTemplateKeyword: false
+SpacesBeforeTrailingComments: 2
+Standard: Cpp11
+TabWidth: 4
+...

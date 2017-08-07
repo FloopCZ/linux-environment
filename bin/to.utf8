@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# A script to convert a text file from cp1250 to utf8.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: to.utf8 FILE1 FILE2 ..."
+  exit 1
+fi
+
+TMPFILE=`mktemp`
+
+for f in "$@"; do
+  iconv -f cp1250 -t UTF8 "$f" > "$TMPFILE"
+  cat "$TMPFILE" > "$f"
+  rm "$TMPFILE"
+done
+
+exit 0

@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo pacman -Syu --noconfirm && yaourt -Syu --aur --noconfirm

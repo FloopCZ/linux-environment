@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# A script to convert a video file to mkv.
+
+if [ $# -lt 4 ]; then
+  echo "Usage: $0 INPUT VIDEO_BITRATE AUDIO_BITRATE OUTPUT"
+  echo "Example: $0 vid.webm 720 128 vid.mkv"
+  exit 1
+fi
+
+IN="$1"
+VBR="$2"
+ABR="$3"
+OUT="$4"
+
+avconv -y -i "$IN" -c:v libx264 -preset slower -b:v "$VBR"k -pass 1 -b:a "$ABR"k -f h264 /dev/null && \
+avconv -i "$IN" -c:v libx264 -preset slower -b:v "$VBR"k -pass 2 -b:a "$ABR"k "$OUT"
