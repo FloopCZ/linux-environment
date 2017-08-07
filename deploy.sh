@@ -1,30 +1,35 @@
 #!/bin/sh
 set -e
 
-# identify package manager, upgrade and install specific packages
-if hash pacman 2>/dev/null; then
-    # Arch linux
-    pacman="pacman -S"
-    sudo pacman -Syu || true
-    sudo pacman -S neovim zsh zsh-completions || true
-    # dual-booting
-    #sudo pacman -S os-prober
-elif hash yum 2>/dev/null; then
-    pacman="yum install"
-    sudo yum upgrade || true
-    sudo yum groupinstall 'Development Tools' || true
-    sudo yum install neovim zsh || true
-elif hash apt-get 2>/dev/null; then
-    pacman="apt-get install"
-    sudo apt-get update || true
-    sudo apt-get upgrade || true
-    sudo apt-get install build-essential neovim zsh libpam-systemd || true
-else
-    pacman=/bin/false
-fi
+if [ "$1" = "--install" ]; then
+  # identify package manager, upgrade and install OS specific packages
+  if hash pacman 2>/dev/null; then
+      # Arch linux
+      pacman -S --noconfirm sudo || true
+      sudo pacman -Syu
+      sudo pacman -S --noconfirm base-devel zsh-completions
+      # dual-booting
+      #sudo pacman -S os-prober
+      pacman_bin="pacman -S --noconfirm"
+  elif hash yum 2>/dev/null; then
+      yum -y install sudo || true
+      sudo yum -y upgrade
+      sudo yum -y groupinstall 'Development Tools'
+      pacman_bin="yum -y install"
+  elif hash apt-get 2>/dev/null; then
+      apt-get -y update || true
+      apt-get -y install sudo || true
+      sudo apt-get -y update
+      sudo apt-get -y upgrade
+      sudo apt-get -y install build-essential libpam-systemd
+      pacman_bin="apt-get -y install"
+  else
+      pacman_bin=/bin/false
+  fi
 
-# install basic packages
-sudo $pacman tmux htop zip unzip mc xsel curl || true
+  # install basic packages
+  sudo $pacman_bin git neovim zsh tmux htop zip unzip mc xsel curl
+fi
 
 # get submodules
 git submodule init
@@ -44,7 +49,7 @@ ln -srfv _vimrc ~/.vimrc
 ln -srfv _vimrc ~/.ideavimrc
 
 # install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh ./install-oh-my-zsh.sh --batch
 
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc

@@ -6,7 +6,7 @@ references:
     run:
       name: Deploy the environment.
       command: |
-        ./deploy.sh
+        ./deploy.sh --install
 
 jobs:
 
