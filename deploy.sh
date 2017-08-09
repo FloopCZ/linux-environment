@@ -33,7 +33,7 @@ fi
 
 # get submodules
 git submodule init
-git submodule update
+git submodule update --remote
 
 # copy neovim colorscheme and config
 mkdir -vp ~/.config/nvim/colors
@@ -49,7 +49,7 @@ ln -srfv _vimrc ~/.vimrc
 ln -srfv _vimrc ~/.ideavimrc
 
 # install oh-my-zsh
-sh ./install-oh-my-zsh.sh --batch
+ln -srfv oh-my-zsh ~/.oh-my-zsh
 
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc

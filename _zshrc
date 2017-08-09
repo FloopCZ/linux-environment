@@ -49,7 +49,7 @@ ZSH_TMUX_AUTOQUIT=false
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git tmux vi-mode archlinux sudo)
-source $ZSH/oh-my-zsh.sh
+source "${ZSH}/oh-my-zsh.sh"
 
 # We use the Vim mode, but keep the Ctrl+R shortcut.
 bindkey -M viins '^r' history-incremental-search-backward
