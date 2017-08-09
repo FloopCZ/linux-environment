@@ -49,7 +49,7 @@ ln -srfv _vimrc ~/.vimrc
 ln -srfv _vimrc ~/.ideavimrc
 
 # install oh-my-zsh
-ln -srfv oh-my-zsh ~/.oh-my-zsh
+ln -srfTv oh-my-zsh ~/.oh-my-zsh
 
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc
