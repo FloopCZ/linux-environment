@@ -33,7 +33,7 @@ fi
 
 # get submodules
 git submodule init
-git submodule update --remote
+git submodule update --recursive --remote
 
 # copy neovim colorscheme and config
 mkdir -vp ~/.config/nvim/colors
