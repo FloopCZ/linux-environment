@@ -51,6 +51,14 @@ ln -srfv _vimrc ~/.ideavimrc
 # install oh-my-zsh
 ln -srfTv oh-my-zsh ~/.oh-my-zsh
 
+# set zsh as the default shell
+current_shell=$(expr "${SHELL:=/bin/false}" : '.*/\(.*\)')
+if [ "$current_shell" != "zsh" ]; then
+  zsh_shell="$(grep /zsh$ /etc/shells | tail -1)"
+  echo "Changing default shell to ${zsh_shell}"
+  chsh -s "${zsh_shell}"
+fi
+
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc
 ln -srfv _zprofile ~/.zprofile
