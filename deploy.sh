@@ -15,6 +15,7 @@ if [ "$1" = "--install" ]; then
       yum -y install sudo || true
       sudo yum -y upgrade
       sudo yum -y groupinstall 'Development Tools'
+      sudo yum -y install util-linux-user
       pacman_bin="yum -y install"
   elif hash apt-get 2>/dev/null; then
       apt-get -y update || true
