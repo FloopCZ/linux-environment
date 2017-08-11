@@ -11,12 +11,12 @@ if [ "$1" = "--install" ]; then
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm"
-  elif hash yum 2>/dev/null; then
-      yum -y install sudo || true
-      sudo yum -y upgrade
-      sudo yum -y groupinstall 'Development Tools'
-      sudo yum -y install util-linux-user
-      pacman_bin="yum -y install"
+  elif hash dnf 2>/dev/null; then
+      dnf -y install sudo || true
+      sudo dnf -y upgrade
+      sudo dnf -y group install 'Development Tools'
+      sudo dnf -y install util-linux-user
+      pacman_bin="dnf -y install"
   elif hash apt-get 2>/dev/null; then
       apt-get -y update || true
       apt-get -y install sudo || true
