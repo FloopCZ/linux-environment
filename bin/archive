@@ -7,11 +7,11 @@ case "$1" in
     shift
     DEST="$1"
     shift
-    tar --xattrs -cp "$@" | xz -9e > "$DEST"
+    tar --xattrs -cvp "$@" | xz -9e > "$DEST"
     ;;
   x|-x|--extract)
     shift
-    tar -xJf "$@"
+    tar -xvJf "$@"
     ;;
   *)
     echo "Usage:"
