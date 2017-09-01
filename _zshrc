@@ -55,11 +55,14 @@ source "${ZSH}/oh-my-zsh.sh"
 bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
-# enable alias pass through sudo
+# Enable alias pass through sudo.
 alias sudo='sudo '
 
-# Use nvim by default
-alias vim='nvim'
+# Use neovim with panels by default.
+alias vim='nvim -p'
+
+# Fast jump to git root.
+alias cgr='cd "$(git rev-parse --show-toplevel)"'
 
 # Add an "alert" alias for long running commands. Use like so:
 #   sleep 10; alert
