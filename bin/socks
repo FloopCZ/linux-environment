@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# A script to make a SOCKS tunnel through a remote SSH server.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 SERVER"
+  echo "Example: $0 user@example.com"
+  exit 1
+fi
+
+ssh -D 8080 -f -C -q -N "$1"
