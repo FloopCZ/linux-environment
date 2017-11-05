@@ -11,9 +11,9 @@ set clipboard+=unnamedplus
 vmap <C-a> gg0oG$
 
 " Font.
-if has('gui_running')
-  set guifont=Courier\ New\ 10
-endif
+" if has('gui_running')
+"   set guifont=Courier\ New\ 10
+" endif
 
 " Use spaces instead of tabs.
 set tabstop=4
@@ -110,7 +110,7 @@ set autoread      " Watch for file changes.
 set number        " Line numbers.
 set scrolloff=3   " Keep few lines above/below.
 set nowrap        " Do not wrap lines longer than the width of the screen.
-set tabpagemax=20 " Raise a limit of opened tabs.
+set tabpagemax=90 " Raise a limit of opened tabs.
 set breakindent   " Keep indentation when wrapping lines.
 
 " Define some pretty whitespace chars
