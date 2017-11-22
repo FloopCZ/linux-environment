@@ -2,18 +2,29 @@ FROM cognexa/cxflow-tensorflow
 MAINTAINER Filip Matzner <floop@floop.cz>
 
 # install openblas
-RUN sudo -u aur pacaur --noconfirm --noedit -S openblas-lapack \
+RUN sudo -u aur pacaur --noconfirm --noedit --needed -S openblas-lapack \
   && sudo -u aur pacaur --noconfirm -Scc
 
 # install extra packages
 RUN pacman --noconfirm --needed -S \
-  arrayfire base-devel boost cmake clang eigen git libclc opencv openmp openssh \
-  parallel python-tensorflow-opt-cuda yaml-cpp \
+      arrayfire \
+      base-devel \
+      boost \
+      cmake \
+      clang \
+      eigen \
+      git \
+      libclc \
+      opencv \
+      openmp \
+      openssh \
+      parallel \
+      yaml-cpp \
   && pacman --noconfirm -Scc
 
 # install fresh cxflow                                          
-RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git && \
-    pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-scikit.git
+RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git \
+  && pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-scikit.git
 # install fresh cxflow-tensorflow
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-tensorflow.git
 # install cxtream
@@ -25,5 +36,5 @@ RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
-RUN sudo -u aur pacaur --noconfirm --noedit -S libcmaes \
+RUN sudo -u aur pacaur --noconfirm --noedit --needed -S libcmaes \
   && sudo -u aur pacaur --noconfirm -Scc
