@@ -1,4 +1,4 @@
-FROM Cognexa/cxflow-tensorflow
+FROM cognexa/cxflow-tensorflow
 MAINTAINER Filip Matzner <floop@floop.cz>
 
 RUN sudo -u aur pacaur --noconfirm --noedit -S openblas-lapack
