@@ -1,7 +1,8 @@
-FROM cxflow-tensorflow
+FROM Cognexa/cxflow-tensorflow
 MAINTAINER Filip Matzner <floop@floop.cz>
 
 RUN sudo -u aur pacaur --noconfirm --noedit -S openblas-lapack
+RUN pacman --noconfirm -S python-tensorflow-opt-cuda
 
 # install fresh cxflow                                          
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git && \
