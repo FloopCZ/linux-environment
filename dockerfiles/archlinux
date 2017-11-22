@@ -2,12 +2,14 @@ FROM cognexa/cxflow-tensorflow
 MAINTAINER Filip Matzner <floop@floop.cz>
 
 # install openblas
-RUN sudo -u aur pacaur --noconfirm --noedit -S openblas-lapack
+RUN sudo -u aur pacaur --noconfirm --noedit -S openblas-lapack \
+  && sudo -u aur pacaur --noconfirm -Scc
 
 # install extra packages
 RUN pacman --noconfirm --needed -S \
   arrayfire base-devel boost cmake clang eigen git libclc opencv openmp openssh \
-  parallel python-tensorflow-opt-cuda yaml-cpp
+  parallel python-tensorflow-opt-cuda yaml-cpp \
+  && pacman --noconfirm -Scc
 
 # install fresh cxflow                                          
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git && \
@@ -15,16 +17,13 @@ RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.g
 # install fresh cxflow-tensorflow
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-tensorflow.git
 # install cxtream
-RUN git clone --recursive https://github.com/Cognexa/cxtream.git && \
-    mkdir -p cxtream/build && cd cxtream/build && \
-    cmake -DBUILD_TEST=OFF .. && \
-    make && make install && ldconfig
-RUN rm -r cxtream
+RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
+  && mkdir -p cxtream/build && cd cxtream/build \
+  && cmake -DBUILD_TEST=OFF .. \
+  && make && make install && ldconfig \
+  && rm -r cxtream
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
-RUN sudo -u aur pacaur --noconfirm --noedit -S libcmaes
-
-# cleanup package cache
-RUN pacman --noconfirm -Rns $(pacman -Qtdq)
-RUN pacman --noconfirm -Scc
+RUN sudo -u aur pacaur --noconfirm --noedit -S libcmaes \
+  && sudo -u aur pacaur --noconfirm -Scc
