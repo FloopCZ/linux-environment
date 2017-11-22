@@ -21,7 +21,7 @@ RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
   && mkdir -p cxtream/build && cd cxtream/build \
   && cmake -DBUILD_TEST=OFF .. \
   && make && make install && ldconfig \
-  && rm -r cxtream
+  && cd ../../ && rm -r cxtream
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
