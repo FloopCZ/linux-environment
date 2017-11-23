@@ -5,12 +5,12 @@ if [ "$1" = "--install" ]; then
   # identify package manager, upgrade and install OS specific packages
   if hash pacman 2>/dev/null; then
       # Arch linux
-      pacman -S --noconfirm sudo || true
+      pacman -S --noconfirm --needed sudo || true
       sudo pacman -Syu
-      sudo pacman -S --noconfirm base-devel zsh-completions
+      sudo pacman -S --noconfirm --needed base-devel zsh-completions
       # dual-booting
       #sudo pacman -S os-prober
-      pacman_bin="pacman -S --noconfirm"
+      pacman_bin="pacman -S --noconfirm --needed"
   elif hash dnf 2>/dev/null; then
       dnf -y install sudo || true
       sudo dnf -y upgrade
