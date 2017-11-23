@@ -1,0 +1,6 @@
+Bootstrap: docker
+From: floopcz/archlinux
+
+%post
+
+    find / -name ".wh.*" -exec rm {} \;

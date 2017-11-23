@@ -1,16 +1,13 @@
 FROM cognexa/cxflow-tensorflow
 MAINTAINER Filip Matzner <floop@floop.cz>
 
-# install openblas
-RUN sudo -u aur pacaur --noconfirm --noedit --needed -S openblas-lapack \
-  && sudo -u aur pacaur --noconfirm -Scc
-
 # install extra packages
 RUN pacman --noconfirm --needed -S \
       arrayfire \
       base-devel \
       boost \
       cmake \
+      cpulimit \
       clang \
       eigen \
       git \
