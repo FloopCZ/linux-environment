@@ -1,5 +1,5 @@
 FROM cognexa/cxflow-tensorflow
-MAINTAINER Filip Matzner <floop@floop.cz>
+MAINTAINER Filip Matzner <docker@floop.cz>
 
 # install extra packages
 RUN pacman --noconfirm --needed -S \
@@ -11,14 +11,24 @@ RUN pacman --noconfirm --needed -S \
       clang \
       eigen \
       git \
+      ipython \
+      jupyter-nbconvert \
+      jupyter-notebook \
       libclc \
+      mathjax \
       opencv \
       openmp \
       openssh \
       parallel \
+      python-ipywidgets \
       yaml-cpp \
   && paccache -rfk0
 
+# install linux environment
+RUN cd /root \
+  && git clone https://github.com/FlopCZ/linux-environment.git \
+  && cd linux-environment \
+  && ./deploy.sh --install
 # install fresh cxflow                                          
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git \
   && pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-scikit.git
