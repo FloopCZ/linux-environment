@@ -151,3 +151,6 @@ inoremap <silent> <C-S>  <C-O>:update<CR>
 " ClangFormat
 map <C-F> :pyf /usr/share/clang/clang-format.py<cr>
 imap <C-F> <c-o>:pyf /usr/share/clang/clang-format.py<cr>
+
+" Fix https://github.com/neovim/neovim/issues/6403
+set guicursor=

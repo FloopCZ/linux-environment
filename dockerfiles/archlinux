@@ -17,7 +17,7 @@ RUN pacman --noconfirm --needed -S \
       openssh \
       parallel \
       yaml-cpp \
-  && pacman --noconfirm -Scc
+  && paccache -rfk0
 
 # install fresh cxflow                                          
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git \
@@ -34,4 +34,5 @@ RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
 RUN sudo -u aur pacaur --noconfirm --noedit --needed -S libcmaes \
-  && sudo -u aur pacaur --noconfirm -Scc
+  && rm -rf ~/.cache \
+  && paccache -rfk0
