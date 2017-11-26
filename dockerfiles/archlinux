@@ -29,6 +29,7 @@ RUN cd /root \
   && git clone https://github.com/FloopCZ/linux-environment.git \
   && cd linux-environment \
   && ./deploy.sh --install
+  && paccache -rfk0
 # install fresh cxflow                                          
 RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git \
   && pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-scikit.git
