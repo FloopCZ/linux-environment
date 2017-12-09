@@ -4,6 +4,20 @@ set nocompatible
 " Load indentation rules and plugins
 filetype plugin indent on
 
+" Load vim-plug plugins
+call plug#begin('~/.config/nvim/plugged')
+Plug 'chriskempson/base16-vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+call plug#end()
+
+" Set-up YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " Use the system clipboard as the unnamed clipboard (simple inter-app copying).
 set clipboard+=unnamedplus
 

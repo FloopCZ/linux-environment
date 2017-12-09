@@ -1,6 +1,3 @@
-[submodule "base16-vim"]
-	path = base16-vim
-	url = https://github.com/chriskempson/base16-vim.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
