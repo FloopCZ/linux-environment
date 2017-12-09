@@ -1,4 +1,5 @@
 export ZSH="${HOME}/.oh-my-zsh"
+export ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 ZSH_THEME="gianu"
 
 # Show dots when loading completition takes long time.
@@ -18,8 +19,12 @@ plugins=(
   vi-mode
   archlinux
   sudo
+  zsh-autosuggestions
 )
 source "${ZSH}/oh-my-zsh.sh"
+
+# Accept autosuggestions using Ctrl+Space
+bindkey "^ " autosuggest-execute
 
 # Use Vim mode, but keep the Ctrl+R shortcut to search the history.
 bindkey -M viins '^r' history-incremental-search-backward
