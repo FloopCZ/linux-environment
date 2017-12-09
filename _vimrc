@@ -1,10 +1,11 @@
 " Use Vim settings instead of Vi.
 set nocompatible
 
-" Load indentation rules and plugins
+" Load indentation rules and plugins.
 filetype plugin indent on
 
-" Load vim-plug plugins
+" Load vim-plug plugins.
+" Don't forget to call `:PlugInstall`.
 call plug#begin('~/.config/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
@@ -36,7 +37,7 @@ autocmd FileType make setlocal noexpandtab
 " base16 color scheme
 set termguicolors
 set background=dark
-colorscheme base16-solarized-dark
+silent! colorscheme base16-solarized-dark
 " Allow changing the background from dark to light using F5
 function! ColorToggle()
     if (&background == "dark")
