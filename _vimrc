@@ -1,8 +1,8 @@
-" C++11 syntax.
-" au BufNewFile,BufRead *.cpp set syntax=cpp11
-
 " Use Vim settings instead of Vi.
 set nocompatible
+
+" Load indentation rules and plugins
+filetype plugin indent on
 
 " Use the system clipboard as the unnamed clipboard (simple inter-app copying).
 set clipboard+=unnamedplus
@@ -62,11 +62,9 @@ nnoremap <S-l> gt
 nnoremap <S-h> gT
 
 " Disable search highlight of the last searched expression
-nnoremap <CR> :noh<CR><CR>
-nnoremap <BS> :noh<CR><BS>
-
-" Load indentation rules and plugins
-filetype plugin indent on
+nnoremap <CR>  :noh<CR><CR>
+nnoremap <BS>  :noh<CR><BS>
+nnoremap <C-L> :noh<CR><BS>
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
