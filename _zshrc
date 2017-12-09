@@ -1,61 +1,31 @@
-# Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="gianu"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
+# Show dots when loading completition takes long time.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Use a different history date format.
+HIST_STAMPS="yyyy-mm-dd"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-HIST_STAMPS="dd.mm.yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Tmux
+# Autostart tmux.
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOQUIT=false
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux vi-mode archlinux sudo)
+# Load plugins and oh-my-zsh.
+plugins=(
+  git
+  tmux
+  vi-mode
+  archlinux
+  sudo
+)
 source "${ZSH}/oh-my-zsh.sh"
 
-# We use the Vim mode, but keep the Ctrl+R shortcut.
+# Use Vim mode, but keep the Ctrl+R shortcut to search the history.
 bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
-# Enable alias pass through sudo.
+# Enable aliases to pass through sudo.
 alias sudo='sudo '
 
 # Use neovim with panels by default.
@@ -64,19 +34,19 @@ alias vim='nvim -p'
 # Fast jump to git root.
 alias cgr='cd "$(git rev-parse --show-toplevel)"'
 
-# Add an "alert" alias for long running commands. Use like so:
+# Add an "alert" alias for long running commands. Example:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
             "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Set restricted umask for non-root users
+# Set restricted umask for non-root users.
 # if [[ $EUID -ne 0 ]]; then
 #   umask 007
 # fi
 
 # Do not expand all wildcards by default, only show menu listing matching patterns.
 setopt GLOB_COMPLETE
-# Use Ctrl+K for the full expansion
+# Use Ctrl+F for the full expansion.
 expand-full () {
   unsetopt GLOB_COMPLETE
   expand-or-complete-with-dots
@@ -85,12 +55,8 @@ expand-full () {
 zle -N expand-full
 bindkey "^F" expand-full
 
-# Fix special keys
-
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
+# Find the right sequences of special keys.
 typeset -A key
-
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
@@ -101,29 +67,20 @@ key[Left]=${terminfo[kcub1]}
 key[Right]=${terminfo[kcuf1]}
 key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
+key[CtrlLeft]="^[[1;5D"
+key[CtrlRight]="^[[1;5C"
 
-# setup keys accordingly
-[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
-[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
-[[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
-[[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
-[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
-[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
-[[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
-[[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
-
-# Finally, make sure the terminal is in application mode, when zle is
-# active. Only then are the values from $terminfo valid.
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-    function zle-line-init () {
-        echoti smkx
-    }
-    function zle-line-finish () {
-        echoti rmkx
-    }
-    zle -N zle-line-init
-    zle -N zle-line-finish
-fi
+# Setup the keys accordingly.
+[[ -n "${key[Home]}"      ]] && bindkey "${key[Home]}"      beginning-of-line
+[[ -n "${key[End]}"       ]] && bindkey "${key[End]}"       end-of-line
+[[ -n "${key[Insert]}"    ]] && bindkey "${key[Insert]}"    overwrite-mode
+[[ -n "${key[Delete]}"    ]] && bindkey "${key[Delete]}"    delete-char
+[[ -n "${key[Up]}"        ]] && bindkey "${key[Up]}"        up-line-or-history
+[[ -n "${key[Down]}"      ]] && bindkey "${key[Down]}"      down-line-or-history
+[[ -n "${key[Left]}"      ]] && bindkey "${key[Left]}"      backward-char
+[[ -n "${key[Right]}"     ]] && bindkey "${key[Right]}"     forward-char
+[[ -n "${key[CtrlLeft]}"  ]] && bindkey "${key[CtrlLeft]}"  backward-word
+[[ -n "${key[CtrlRight]}" ]] && bindkey "${key[CtrlRight]}" forward-word
 
 # Load local zshrc.
 if [ -f "${HOME}/.zshrc-local" ]; then
