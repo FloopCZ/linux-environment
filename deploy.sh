@@ -51,6 +51,8 @@ ln -srfv _vimrc ~/.ideavimrc
 
 # install oh-my-zsh
 ln -srfTv oh-my-zsh ~/.oh-my-zsh
+# install oh-my-zsh custom folder
+ln -srfTv oh-my-zsh-custom ~/.oh-my-zsh-custom
 
 # set zsh as the default shell
 current_shell=$(expr "${SHELL:=/bin/false}" : '.*/\(.*\)')

@@ -47,3 +47,8 @@ RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 RUN sudo -u aur pacaur --noconfirm --noedit --needed -S libcmaes \
   && rm -rf ~/.cache \
   && paccache -rfk0
+# install jupyter nbextensions
+RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
+  && jupyter contrib nbextension install --system \
+  && pip install --upgrade --no-cache-dir jupyter_nbextensions_configurator \
+  && jupyter nbextensions_configurator enable --system

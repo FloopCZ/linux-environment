@@ -1,19 +1,14 @@
-" C++11 syntax.
-" au BufNewFile,BufRead *.cpp set syntax=cpp11
-
 " Use Vim settings instead of Vi.
 set nocompatible
+
+" Load indentation rules and plugins
+filetype plugin indent on
 
 " Use the system clipboard as the unnamed clipboard (simple inter-app copying).
 set clipboard+=unnamedplus
 
 " Use C-a to select all in visual mode (doesn't change the mode).
 vmap <C-a> gg0oG$
-
-" Font.
-" if has('gui_running')
-"   set guifont=Courier\ New\ 10
-" endif
 
 " Use spaces instead of tabs.
 set tabstop=4
@@ -22,9 +17,7 @@ set softtabstop=4
 set expandtab
 
 " Turn off expandtab for editing makefiles.
-if has("autocmd")
-  autocmd FileType make setlocal noexpandtab
-endif
+autocmd FileType make setlocal noexpandtab
 
 " base16 color scheme
 set termguicolors
@@ -40,49 +33,38 @@ function! ColorToggle()
         set background=dark
     endif
 endfunction
-" nnoremap <silent> <F5> :call ColorToggle()<CR>
 nnoremap <F5> :call ColorToggle()<CR>
 
 " Syntax hightlighting.
-if has("syntax")
-  syntax on
-endif
+syntax on
 
 " Enable mouse usage (all modes).
-if has("mouse")
-  set mouse=a
-endif
+set mouse=a
+
+" Enable menus.
+set wildmenu
+set wildmode=longest:full,full
 
 " For all text files set 'textwidth' to 78 characters.
-"if has("autocmd")
-"  autocmd FileType text setlocal textwidth=78
-"endif
+" autocmd FileType text setlocal textwidth=78
 
 " Jump to the last position when reopening a file.
-if has("autocmd")
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-endif
+autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
 
 " Delete buffers that are not active.
-if has("autocmd")
-  autocmd BufEnter * setlocal bufhidden=delete 
-endif
+autocmd BufEnter * setlocal bufhidden=delete
 
 " Set some handy shorcuts for moving in tabs
 nnoremap <S-l> gt
 nnoremap <S-h> gT
 
 " Disable search highlight of the last searched expression
-nnoremap <CR> :noh<CR><CR>
-nnoremap <BS> :noh<CR><BS>
-
-" Load indentation rules and plugins
-if has("autocmd")
-  filetype plugin indent on
-endif
+nnoremap <CR>  :noh<CR><CR>
+nnoremap <BS>  :noh<CR><BS>
+nnoremap <C-L> :noh<CR><BS>
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
