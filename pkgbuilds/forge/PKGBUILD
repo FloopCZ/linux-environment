@@ -1,0 +1,38 @@
+# Modified from the community package by Sven-Hendrik Haase <sh@lutzhaase.com>
+pkgname=forge
+pkgdesc="High Performance Visualizations"
+url='https://github.com/arrayfire/forge'
+pkgver=1.1
+arch=('x86_64')
+pkgrel=1
+license=('BSD')
+makedepends=('cmake' 'git' 'python' 'glm' 'gcc6' 'boost')
+depends=('glfw' 'freetype2' 'fontconfig' 'freeimage')
+source=(git+https://github.com/arrayfire/forge)
+md5sums=('SKIP')
+provides=('forge')
+conflicts=('forge')
+
+build() {
+  cd "${srcdir}/forge"
+
+  # rm -rf build
+  mkdir build && cd build
+
+  export CC=gcc-6
+  export CXX=g++-6
+  cmake .. \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DBUILD_EXAMPLES=ON \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_DOCUMENTATION=OFF
+
+  make -j8
+}
+
+package() {
+  cd "${srcdir}/forge"
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  cd build
+  make DESTDIR="${pkgdir}/" install
+}
