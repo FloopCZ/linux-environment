@@ -85,6 +85,13 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+" Remember folds.
+autocmd BufWinLeave *.* mkview!
+autocmd BufWinEnter *.* silent! loadview
+
+" Fold by indentation.
+set foldmethod=syntax
+
 " Delete buffers that are not active.
 autocmd BufEnter * setlocal bufhidden=delete
 
