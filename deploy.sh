@@ -37,6 +37,7 @@ git submodule init
 git submodule update --recursive --remote
 
 # copy neovim config
+mkdir -vp ~/.config/nvim
 ln -srfv _vimrc ~/.config/nvim/init.vim
 
 # install vim-plug to neovim
