@@ -8,16 +8,32 @@ filetype plugin indent on
 " Don't forget to call `:PlugInstall`.
 call plug#begin('~/.config/nvim/plugged')
 Plug 'chriskempson/base16-vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
-" Set-up YouCompleteMe
+" Set-up YouCompleteMe.
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
+" Do not use code diagnostics.
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
+" Close the documentation window after insertion.
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Set-up airline.
+" Do not check indentation.
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 " Use the system clipboard as the unnamed clipboard (simple inter-app copying).
 set clipboard+=unnamedplus
@@ -83,7 +99,7 @@ nnoremap <C-L> :noh<CR><BS>
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
- 
+
 " Use extended regular expressions. This settings has problems with
 " searching words whose last letter is `s`. e.g.
 " s/words/worlds/ is interpreted as s/\vwords/\vworlds/
@@ -111,7 +127,7 @@ set tabpagemax=90 " Raise a limit of opened tabs.
 set breakindent   " Keep indentation when wrapping lines.
 
 " Define some pretty whitespace chars
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:·
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:Â·
 
 " Define :DiffOrig command - shows the difference between the edited file and
 " the original
