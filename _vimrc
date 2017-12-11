@@ -91,8 +91,8 @@ autocmd BufWinEnter *.* silent! loadview
 
 " Fold by indentation.
 set foldmethod=syntax
-" Do not fold git commits.
-autocmd FileType gitcommit setlocal nofoldenable
+" Do not fold by default.
+set foldlevelstart=99
 
 " Delete buffers that are not active.
 autocmd BufEnter * setlocal bufhidden=delete
