@@ -8,7 +8,7 @@ pkgrel=1
 license=('BSD')
 makedepends=('cmake' 'opencl-headers' 'glfw' 'glew' 'boost' 'git' 'python' 'ocl-icd' 'gcc6')
 makedepends_x86_64=('cuda' 'nvidia-utils')
-depends=('cblas' 'fftw' 'boost-libs' 'lapacke' 'freeimage' 'glfw' 'glew')
+depends=('cblas' 'fftw' 'boost-libs' 'lapacke' 'forge' 'freeimage' 'glfw' 'glew')
 optdepends=('cuda: Required for using CUDA backend'
             'nvidia-utils: Required for using CUDA backend'
             'libclc: Required for using OpenCL backend')
