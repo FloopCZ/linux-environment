@@ -36,15 +36,23 @@ fi
 git submodule init
 git submodule update --recursive --remote
 
-# copy neovim colorscheme and config
-mkdir -vp ~/.config/nvim/colors
-ln -srfv base16-vim/colors/*.vim ~/.config/nvim/colors/
+# copy neovim config
+mkdir -vp ~/.config/nvim
 ln -srfv _vimrc ~/.config/nvim/init.vim
 
-# copy vim colorscheme and config
-mkdir -vp ~/.vim/colors
-ln -srfv base16-vim/colors/*.vim ~/.vim/colors/
+# install vim-plug to neovim
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# copy vim config
 ln -srfv _vimrc ~/.vimrc
+
+# install vim-plug to vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# copy YouCompleteMe extra configuration
+ln -srfv _ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 # copy ideavim config
 ln -srfv _vimrc ~/.ideavimrc
