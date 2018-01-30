@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo pacman -Syu --noconfirm && pacaur -Syu --aur --noconfirm
+sudo pacman -Syu --noconfirm && pacaur -Syu --aur --noconfirm --noedit
