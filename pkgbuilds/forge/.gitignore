@@ -1,0 +1,4 @@
+forge/
+src/
+pkg/
+*.tar.xz
