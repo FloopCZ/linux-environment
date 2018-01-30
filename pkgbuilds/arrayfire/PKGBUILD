@@ -44,7 +44,8 @@ build() {
       -DBUILD_NONFREE=ON \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_EXAMPLES=ON \
-      -DBUILD_DOCS=OFF
+      -DBUILD_DOCS=OFF \
+      -DBUILD_TEST=OFF
 
   make -j8
 }
