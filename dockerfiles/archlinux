@@ -9,6 +9,7 @@ RUN pacman --noconfirm --needed -S \
       cmake \
       cpulimit \
       clang \
+      crypto++ \
       eigen \
       git \
       ipython \
@@ -20,6 +21,7 @@ RUN pacman --noconfirm --needed -S \
       openmp \
       openssh \
       parallel \
+      plugixml \
       python-ipywidgets \
       yaml-cpp \
   && paccache -rfk0
@@ -39,7 +41,7 @@ RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-t
 RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
   && mkdir -p cxtream/build && cd cxtream/build \
   && cmake -DBUILD_TEST=OFF .. \
-  && make && make install && ldconfig \
+  && make -j4 && make install && ldconfig \
   && cd ../../ && rm -r cxtream
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
@@ -47,6 +49,25 @@ RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 RUN sudo -u aur pacaur --noconfirm --noedit --needed -S libcmaes \
   && rm -rf ~/.cache \
   && paccache -rfk0
+# install jupyter c++ support
+RUN sudo -u aur pacaur --noconfirm --noedit --needed -S cling-jupyter-git cxxopts root \
+  && rm -rf ~/.cache \
+  && paccache -rfk0
+RUN git clone --recursive https://github.com/QuantStack/xtl.git \
+  && mkdir -p xtl/build && cd xtl/build \
+  && cmake .. \
+  && make -j4 && make install && ldconfig \
+  && cd ../../ && rm -r xtl
+RUN git clone --recursive https://github.com/QuantStack/xeus.git \
+  && mkdir -p xeus/build && cd xeus/build \
+  && cmake .. \
+  && make -j4 && make install && ldconfig \
+  && cd ../../ && rm -r xeus
+RUN git clone --recursive https://github.com/QuantStack/xeus-cling.git \
+  && mkdir -p xeus-cling/build && cd xeus-cling/build \
+  && cmake .. \
+  && make -j4 && make install && ldconfig \
+  && cd ../../ && rm -r xeus-cling
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter contrib nbextension install --system \
