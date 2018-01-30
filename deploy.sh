@@ -29,7 +29,7 @@ if [ "$1" = "--install" ]; then
   fi
 
   # install basic packages
-  sudo $pacman_bin git neovim zsh tmux htop zip unzip mc xsel curl
+  sudo $pacman_bin git neovim zsh tmux htop zip unzip mc xsel curl trash-cli
 fi
 
 # get submodules

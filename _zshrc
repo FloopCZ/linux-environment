@@ -36,6 +36,9 @@ alias sudo='sudo '
 # Use neovim with panels by default.
 alias vim='nvim -p'
 
+# Move to trash instead of hard rm.
+alias rm='trash'
+
 # Fast jump to git root.
 alias cgr='cd "$(git rev-parse --show-toplevel)"'
 
