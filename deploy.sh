@@ -80,6 +80,15 @@ ln -srfv _tmux.conf ~/.tmux.conf
 # copy clang-format
 ln -srfv _clang-format ~/.clang-format
 
+# copy pam environment
+ln -srfv _pam_environment ~/.pam_environment
+
 # copy binaries
 mkdir -vp ~/bin
 ln -srfv bin/* ~/bin/
+
+# copy ssh-key agent
+mkdir -p ~/.config/systemd/user
+ln -srfv systemd-templates/ssh-agent.service ~/.config/systemd/user
+systemctl --user enable ssh-agent.service
+systemctl --user start ssh-agent.service
