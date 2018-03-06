@@ -87,6 +87,10 @@ ln -srfv _pam_environment ~/.pam_environment
 mkdir -vp ~/bin
 ln -srfv bin/* ~/bin/
 
+# copy ssh config
+mkdir -p ~/.ssh
+ln -srfv _ssh_config ~/.ssh/config
+
 # copy ssh-key agent
 mkdir -p ~/.config/systemd/user
 ln -srfv systemd-templates/ssh-agent.service ~/.config/systemd/user
