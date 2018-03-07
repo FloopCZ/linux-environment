@@ -86,8 +86,9 @@ autocmd BufReadPost *
   \ endif
 
 " Remember folds.
-autocmd BufWinLeave *.* mkview!
-autocmd BufWinEnter *.* silent! loadview
+" This sometimes breaks syntax highlighting.
+" autocmd BufWinLeave *.* mkview!
+" autocmd BufWinEnter *.* silent! loadview
 
 " Fold by indentation.
 set foldmethod=syntax
