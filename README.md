@@ -53,7 +53,7 @@ __zsh__
 
 __git__
 
-To learn the basics of Git, try a [Git game](https://try.github.io).
+To learn the basics of Git, try this [Git game](https://try.github.io).
 
 | Shortcut              | Description                               |
 | --------------------- | ----------------------------------------- |
@@ -64,5 +64,5 @@ To learn the basics of Git, try a [Git game](https://try.github.io).
 | `gst`                 | `git status`                              |
 | `gb`                  | `git branch`                              |
 
-For more git shortcuts, see oh-my-zsh
+For more Git shortcuts, see oh-my-zsh
 [git plugin wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
