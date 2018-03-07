@@ -28,8 +28,12 @@ __tmux__
 | `Ctrl-b x`       | Kill frozen pane.                      |
 | `Alt-h/l`        | Move one window left/right.            |
 | `Ctrl-h/j/k/l`   | Move one pane left/down/up/right.      |
+| `Ctrl-b d`       | Detach current session.                |
+| `tmux a`         | Reattach a detached session.           |
 
 __vim__
+
+To learn the basics of Vim, run the `vimtutor` command in your terminal.
 
 | Shortcut         | Description                            |
 | ---------------- | -------------------------------        |
@@ -39,7 +43,26 @@ __vim__
 
 __zsh__
 
+| Shortcut              | Description                                 |
+| --------------------- | -----------------------------------------   |
+| `Ctrl-space`          | Execute the suggested command.              |
+| `Ctrl-right arrrow`   | Accept one word of the suggested command.   |
+| `Ctrl-c`              | Interrupt command.                          |
+| `Ctrl-f`              | Expand wildcards to the list of full names. |
+| `Ctrl-d`              | Exit shell.                                 |
+
+__git__
+
+To learn the basics of Git, try a [Git game](https://try.github.io).
+
 | Shortcut              | Description                               |
 | --------------------- | ----------------------------------------- |
-| `Ctrl-space`          | Execute the suggested command.            |
-| `Ctrl-right arrrow`   | Accept one word of the suggested command. |
+| `gco`                 | `git checkout`                            |
+| `gl`                  | `git pull`                                |
+| `gp`                  | `git pull`                                |
+| `gd`                  | `git diff`                                |
+| `gst`                 | `git status`                              |
+| `gb`                  | `git branch`                              |
+
+For more git shortcuts, see
+[oh-my-zsh git plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
