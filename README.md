@@ -64,5 +64,5 @@ To learn the basics of Git, try a [Git game](https://try.github.io).
 | `gst`                 | `git status`                              |
 | `gb`                  | `git branch`                              |
 
-For more git shortcuts, see
-[oh-my-zsh git plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
+For more git shortcuts, see oh-my-zsh
+[git plugin wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
