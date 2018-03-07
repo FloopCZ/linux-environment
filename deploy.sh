@@ -91,8 +91,10 @@ ln -srfv bin/* ~/bin/
 mkdir -p ~/.ssh
 ln -srfv _ssh_config ~/.ssh/config
 
-# copy ssh-key agent
-mkdir -p ~/.config/systemd/user
-ln -srfv systemd-templates/ssh-agent.service ~/.config/systemd/user
-systemctl --user enable ssh-agent.service
-systemctl --user start ssh-agent.service
+# copy ssh-key agent (if not in docker)
+if [ ! -f /.dockerenv ]; then
+    mkdir -p ~/.config/systemd/user
+    ln -srfv systemd-templates/ssh-agent.service ~/.config/systemd/user
+    systemctl --user enable ssh-agent.service
+    systemctl --user start ssh-agent.service
+fi
