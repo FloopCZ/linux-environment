@@ -9,6 +9,7 @@ filetype plugin indent on
 call plug#begin('~/.config/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
@@ -17,7 +18,21 @@ Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'wellle/tmux-complete.vim'
 call plug#end()
+
+" Set-up EasyMotion.
+" Disable default mappings.
+let g:EasyMotion_do_mapping = 0
+" Jump with `s{char}{label}`.
+nmap s <Plug>(easymotion-overwin-f)
+" Jump with `s{char}{char}{label}`.
+" nmap s <Plug>(easymotion-overwin-f2)
+" Be case insensitive.
+let g:EasyMotion_smartcase = 1
+" Enable line motions.
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 " Set-up YouCompleteMe.
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -28,6 +43,10 @@ let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
 " Close the documentation window after insertion.
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Set up tmux-complete.
+" Integrate with YouCompleteMe.
+let g:tmuxcomplete#trigger = 'omnifunc'
 
 " Set-up airline.
 " Do not check indentation.
