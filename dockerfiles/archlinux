@@ -46,13 +46,13 @@ RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
-RUN sudo -u aur pacaur --noconfirm --noedit --needed -S libcmaes \
-  && rm -rf ~/.cache \
-  && paccache -rfk0
+RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
+  && paccache -rfk0 \
+  && trizen -Scc --noconfirm
 # install jupyter c++ support
-RUN sudo -u aur pacaur --noconfirm --noedit --needed -S cling-jupyter-git cxxopts root \
-  && rm -rf ~/.cache \
-  && paccache -rfk0
+RUN sudo -u aur trizen --noconfirm --needed -S cling-jupyter-git cxxopts root \
+  && paccache -rfk0 \
+  && trizen -Scc --noconfirm
 RUN git clone --recursive https://github.com/QuantStack/xtl.git \
   && mkdir -p xtl/build && cd xtl/build \
   && cmake .. \
