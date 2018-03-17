@@ -1,4 +1,5 @@
-FROM cognexa/cxflow-tensorflow
+ARG tag="latest"
+FROM cognexa/cxflow-tensorflow:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
 # install extra packages
