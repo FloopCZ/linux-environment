@@ -1,2 +1,4 @@
 #!/bin/sh
+# This hook replaces the build procedure of Docker Hub. It exposes the
+# built image tag as a build argument so that it can be used inside the Dockerfile.
 docker build --build-arg tag="${DOCKER_TAG}" -t "${IMAGE_NAME}" -f $(basename "${BUILD_PATH}") .
