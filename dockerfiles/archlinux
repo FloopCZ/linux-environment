@@ -7,16 +7,11 @@ RUN pacman --noconfirm --needed -S \
       arrayfire \
       cpulimit \
       clang \
-      crypto++ \
       eigen \
       ipython \
-      jupyter-nbconvert \
       jupyter-notebook \
-      libclc \
-      mathjax \
-      opencv \
+      libclc               `# arrayfire opencl support` \
       parallel \
-      pugixml \
       python-ipywidgets \
   && paccache -rfk0
 
@@ -26,31 +21,45 @@ RUN cd /root \
   && cd linux-environment \
   && ./deploy.sh --install \
   && paccache -rfk0
+
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
+
 # install libcmaes
 RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
+
 # install jupyter c++ support
-RUN sudo -u aur trizen --noconfirm --needed -S cling-jupyter-git cxxopts root \
+# dependencies
+RUN sudo -u aur trizen --noconfirm --needed -S \
+      cling-jupyter-git \
+      crypto++ \
+      cxxopts \
+      nlohmann-json \
+      pugixml \
+      zeromq \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
+# xtl
 RUN git clone --recursive https://github.com/QuantStack/xtl.git \
   && mkdir -p xtl/build && cd xtl/build \
   && cmake .. \
   && make -j4 && make install && ldconfig \
   && cd ../../ && rm -r xtl
+# xeus
 RUN git clone --recursive https://github.com/QuantStack/xeus.git \
   && mkdir -p xeus/build && cd xeus/build \
   && cmake .. \
   && make -j4 && make install && ldconfig \
   && cd ../../ && rm -r xeus
+# xeus-cling
 RUN git clone --recursive https://github.com/QuantStack/xeus-cling.git \
   && mkdir -p xeus-cling/build && cd xeus-cling/build \
   && cmake .. \
   && make -j4 && make install && ldconfig \
   && cd ../../ && rm -r xeus-cling
+
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter contrib nbextension install --system \
