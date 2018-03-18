@@ -6,7 +6,7 @@ if [ "$1" = "--install" ]; then
   if hash pacman 2>/dev/null; then
       # Arch linux
       pacman -S --noconfirm --needed sudo || true
-      sudo pacman -Syu
+      sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions
       # dual-booting
       #sudo pacman -S os-prober
