@@ -12,12 +12,14 @@ if [ "$1" = "--install" ]; then
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
   elif hash dnf 2>/dev/null; then
+      # Fedora
       dnf -y install sudo || true
       sudo dnf -y upgrade
       sudo dnf -y group install 'Development Tools'
       sudo dnf -y install util-linux-user
       pacman_bin="dnf -y install"
   elif hash apt-get 2>/dev/null; then
+      # Debian/Ubuntu
       apt-get -y update || true
       apt-get -y install sudo || true
       sudo apt-get -y update
