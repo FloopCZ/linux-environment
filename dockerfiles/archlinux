@@ -1,29 +1,23 @@
-FROM cognexa/cxflow-tensorflow
+ARG tag="latest"
+FROM cognexa/cxflow-tensorflow-cxtream:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
 # install extra packages
 RUN pacman --noconfirm --needed -S \
       arrayfire \
-      base-devel \
-      boost \
-      cmake \
       cpulimit \
       clang \
       crypto++ \
       eigen \
-      git \
       ipython \
       jupyter-nbconvert \
       jupyter-notebook \
       libclc \
       mathjax \
       opencv \
-      openmp \
-      openssh \
       parallel \
       pugixml \
       python-ipywidgets \
-      yaml-cpp \
   && paccache -rfk0
 
 # install linux environment
@@ -32,17 +26,6 @@ RUN cd /root \
   && cd linux-environment \
   && ./deploy.sh --install \
   && paccache -rfk0
-# install fresh cxflow                                          
-RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow.git \
-  && pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-scikit.git
-# install fresh cxflow-tensorflow
-RUN pip install --upgrade --no-cache-dir git+https://github.com/Cognexa/cxflow-tensorflow.git
-# install cxtream
-RUN git clone --recursive https://github.com/Cognexa/cxtream.git \
-  && mkdir -p cxtream/build && cd cxtream/build \
-  && cmake -DBUILD_TEST=OFF .. \
-  && make -j4 && make install && ldconfig \
-  && cd ../../ && rm -r cxtream
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 # install libcmaes
