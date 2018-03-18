@@ -65,3 +65,7 @@ To learn the basics of Git, try this [Git game](https://try.github.io).
 | `gb`                  | `git branch`                              |
 
 For more Git shortcuts, see oh-my-zsh [git plugin wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
+
+## Dockerfiles
+
+You can find a "maximalistic" system preinstalled with Floop's Linux Environment on [Docker Hub](https://hub.docker.com/r/floopcz).
