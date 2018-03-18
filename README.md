@@ -3,7 +3,7 @@
 Are you tired of configuring your linux environment every time you launch a new VPS or reinstall your workstation?
 Deploy Floop's environment and enjoy!
 
-![screenshot](screenshot.png "Floop's environment screenshot")
+![screenshot](https://github.com/FloopCZ/linux-environment/raw/master/screenshot.png "Floop's environment screenshot")
 
 ## Deployment
 
