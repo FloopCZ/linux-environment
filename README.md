@@ -7,14 +7,13 @@ Deploy Floop's environment and enjoy!
 
 ## Deployment
 
-```
+```bash
 git clone https://github.com/FloopCZ/linux-environment.git
 cd linux-environment
 ./deploy.sh --install
 ```
 
-If you are a Vim user, don't forget to run `:PlugInstall` inside
-Vim.
+If you are a Vim user, don't forget to run `:PlugInstall` inside Vim.
 
 ## Cheatsheet
 
@@ -43,13 +42,14 @@ To learn the basics of Vim, run the `vimtutor` command in your terminal.
 
 __zsh__
 
-| Shortcut              | Description                                 |
-| --------------------- | -----------------------------------------   |
-| `Ctrl-space`          | Execute the suggested command.              |
-| `Ctrl-right arrrow`   | Accept one word of the suggested command.   |
-| `Ctrl-c`              | Interrupt command.                          |
-| `Ctrl-f`              | Expand wildcards to the list of full names. |
-| `Ctrl-d`              | Exit shell.                                 |
+| Shortcut              | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| `Ctrl-space`          | Execute the suggested command.                         |
+| `Ctrl-right arrrow`   | Accept one word of the suggested command.              |
+| `Ctrl-c`              | Interrupt command.                                     |
+| `Ctrl-f`              | Expand wildcards to the list of full names.            |
+| `Ctrl-d`              | Exit shell.                                            |
+| `rm`                  | Aliased to `trash` (use `trash-empty` to empty trash and `/bin/rm` for the real `rm`). |
 
 __git__
 
@@ -64,5 +64,4 @@ To learn the basics of Git, try this [Git game](https://try.github.io).
 | `gst`                 | `git status`                              |
 | `gb`                  | `git branch`                              |
 
-For more Git shortcuts, see oh-my-zsh
-[git plugin wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
+For more Git shortcuts, see oh-my-zsh [git plugin wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git).
