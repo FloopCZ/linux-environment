@@ -30,11 +30,11 @@ RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
 
-# install cling C++ jupyter notebook plugin
-RUN sudo -u aur trizen --noconfirm --needed -S \
-      cling-jupyter-git \
-  && paccache -rfk0 \
-  && trizen -Scc --noconfirm
+## install cling C++ jupyter notebook plugin
+#RUN sudo -u aur trizen --noconfirm --needed -S \
+#      cling-jupyter-git \
+#  && paccache -rfk0 \
+#  && trizen -Scc --noconfirm
 
 # install xeus-cling C++ jupyter notebook plugin
 ## dependencies
