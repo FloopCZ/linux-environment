@@ -7,16 +7,11 @@ RUN pacman --noconfirm --needed -S \
       arrayfire \
       cpulimit \
       clang \
-      crypto++ \
       eigen \
       ipython \
-      jupyter-nbconvert \
       jupyter-notebook \
-      libclc \
-      mathjax \
-      opencv \
+      libclc               `# arrayfire opencl support` \
       parallel \
-      pugixml \
       python-ipywidgets \
   && paccache -rfk0
 
@@ -26,31 +21,71 @@ RUN cd /root \
   && cd linux-environment \
   && ./deploy.sh --install \
   && paccache -rfk0
+
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
+
 # install libcmaes
 RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
-# install jupyter c++ support
-RUN sudo -u aur trizen --noconfirm --needed -S cling-jupyter-git cxxopts root \
+
+# install cling C++ jupyter notebook plugin
+RUN sudo -u aur trizen --noconfirm --needed -S \
+      cling-jupyter-git \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
-RUN git clone --recursive https://github.com/QuantStack/xtl.git \
-  && mkdir -p xtl/build && cd xtl/build \
-  && cmake .. \
-  && make -j4 && make install && ldconfig \
-  && cd ../../ && rm -r xtl
-RUN git clone --recursive https://github.com/QuantStack/xeus.git \
-  && mkdir -p xeus/build && cd xeus/build \
-  && cmake .. \
-  && make -j4 && make install && ldconfig \
-  && cd ../../ && rm -r xeus
-RUN git clone --recursive https://github.com/QuantStack/xeus-cling.git \
-  && mkdir -p xeus-cling/build && cd xeus-cling/build \
-  && cmake .. \
-  && make -j4 && make install && ldconfig \
-  && cd ../../ && rm -r xeus-cling
+
+# install xeus-cling C++ jupyter notebook plugin
+## dependencies
+#RUN sudo -u aur trizen --noconfirm --needed -S \
+#      cling-jupyter-git \
+#      cxxopts \
+#      nlohmann-json \
+#      pugixml \
+#  && paccache -rfk0 \
+#  && trizen -Scc --noconfirm
+## xtl
+#RUN git clone --recursive https://github.com/QuantStack/xtl.git \
+#  && mkdir -p xtl/build && cd xtl/build \
+#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r xtl
+## libzmq
+#RUN git clone --recursive https://github.com/zeromq/libzmq.git \
+#  && mkdir -p libzmq/build && cd libzmq/build \
+#  && cmake -DWITH_PERF_TOOL=OFF -DZMQ_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r libzmq
+## cppzmq
+#RUN git clone --recursive https://github.com/zeromq/cppzmq.git \
+#  && mkdir -p cppzmq/build && cd cppzmq/build \
+#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r cppzmq
+## crypto++
+#RUN git clone --recursive https://github.com/weidai11/cryptopp \
+#  && cd cryptopp \
+#  && git clone --recursive https://github.com/noloader/cryptopp-cmake.git \
+#  && cp cryptopp-cmake/cryptopp-config.cmake . \
+#  && cp cryptopp-cmake/CMakeLists.txt . \
+#  && mkdir -p build && cd build \
+#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r cryptopp
+## xeus
+#RUN git clone --recursive https://github.com/QuantStack/xeus.git \
+#  && mkdir -p xeus/build && cd xeus/build \
+#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r xeus
+## xeus-cling
+#RUN git clone --recursive https://github.com/QuantStack/xeus-cling.git \
+#  && mkdir -p xeus-cling/build && cd xeus-cling/build \
+#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#  && make -j4 && make install && ldconfig \
+#  && cd ../../ && rm -r xeus-cling
+
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter contrib nbextension install --system \
