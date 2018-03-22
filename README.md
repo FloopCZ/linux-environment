@@ -39,6 +39,7 @@ To learn the basics of Vim, run the `vimtutor` command in your terminal.
 | `:tabe <name>`   | Open existing/new file in a new tab.   |
 | `Shift-h/l`      | Move one tab left/right.               |
 | `:PlugInstall`   | Install all the registered plugins.    |
+| `<F8>`           | Disable auto indent.                   |
 
 __zsh__
 
