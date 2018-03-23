@@ -114,6 +114,8 @@ autocmd BufReadPost *
 set foldmethod=syntax
 " Do not fold by default.
 set foldlevelstart=99
+" Limit maximum nesting of folds.
+set foldnestmax=4
 
 " Delete buffers that are not active.
 autocmd BufEnter * setlocal bufhidden=delete
