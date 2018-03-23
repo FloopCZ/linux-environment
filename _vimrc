@@ -26,8 +26,10 @@ call plug#end()
 " Disable default mappings.
 let g:EasyMotion_do_mapping = 0
 " Jump with `s{char}{label}`.
+vmap s <Plug>(easymotion-bd-f)
 nmap s <Plug>(easymotion-overwin-f)
 " Jump with `s{char}{char}{label}`.
+" vmap s <Plug>(easymotion-bd-f2)
 " nmap s <Plug>(easymotion-overwin-f2)
 " Be case insensitive.
 let g:EasyMotion_smartcase = 1
