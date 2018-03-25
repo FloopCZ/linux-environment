@@ -6,14 +6,14 @@ set -e
 # can be folded in the middle and makes a nice book.
 
 if [ $# -lt 2 ]; then
-  echo "Usage: $0 input-pdf output-pdf [page-range]"
+  echo "Usage: $0 input-pdf output-pdf [page-ranges...]"
   echo "Example: $0 full.pdf two-col.pdf 10-110"
   exit 1
 fi
 
-if [ -n "$3" ]; then
-    # Cut pages via pdftk (pdfxup -p sometimes produces an invalid).
-    pdftk "$1" cat "$3" output "$1_cut.pdf"
+if [ $# -gt 2 ]; then
+    # Cut pages via pdftk (pdfxup -p sometimes produces an empty file).
+    pdftk "$1" cat "${@:3}" output "$1_cut.pdf"
 fi
 
 pdfxup -b se -o "$2" -im 15pt -m 0pt -fw 0pt "$1_cut.pdf"
