@@ -16,5 +16,5 @@ if [ $# -gt 2 ]; then
     pdftk "$1" cat "${@:3}" output "$1_cut.pdf"
 fi
 
-pdfxup -b se -o "$2" -im 15pt -m 0pt -fw 0pt "$1_cut.pdf"
+pdfxup -bb 20 -b se -o "$2" -im 15pt -m 0pt -fw 0pt "$1_cut.pdf"
 rm "$1_cut.pdf"
