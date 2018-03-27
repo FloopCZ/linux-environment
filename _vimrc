@@ -72,6 +72,14 @@ set expandtab
 " Turn off expandtab for editing makefiles.
 autocmd FileType make setlocal noexpandtab
 
+" Improve indentation for doxygen comments.
+autocmd FileType c,cpp set comments-=://
+autocmd FileType c,cpp set comments+=:///
+autocmd FileType c,cpp set comments+=://
+
+" Do not indent ':' in C++.
+autocmd FileType c,cpp setlocal cinkeys-=:
+
 " base16 color scheme
 set termguicolors
 set background=dark
