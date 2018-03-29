@@ -36,16 +36,17 @@ build() {
   export CXX=g++-6
   cmake .. \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DUSE_SYSTEM_FORGE=ON \
-      -DBUILD_CUDA=ON \
-      -DBUILD_CPU=ON \
-      -DBUILD_OPENCL=ON \
-      -DOPENCL_BLAS_LIBRARY=CLBlast \
-      -DBUILD_NONFREE=ON \
       -DCMAKE_BUILD_TYPE=Release \
-      -DBUILD_EXAMPLES=ON \
-      -DBUILD_DOCS=OFF \
-      -DBUILD_TEST=OFF
+      -DAF_BUILD_CUDA=ON \
+      -DAF_BUILD_CPU=ON \
+      -DAF_BUILD_OPENCL=ON \
+      -DAF_OPENCL_BLAS_LIBRARY=CLBlast \
+      -DAF_BUILD_EXAMPLES=ON \
+      -DAF_BUILD_DOCS=OFF \
+      -DAF_WITH_NONFREE=ON \
+      -DAF_WITH_GRAPHICS=ON \
+      -DAF_USE_SYSTEM_FORGE=ON \
+      -DBUILD_TESTING=OFF
 
   make -j8
 }
