@@ -23,9 +23,10 @@ build() {
   export CXX=g++-6
   cmake .. \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DBUILD_EXAMPLES=ON \
       -DCMAKE_BUILD_TYPE=Release \
-      -DBUILD_DOCUMENTATION=OFF
+      -DFG_WITH_FREEIMAGE=ON \
+      -DFG_BUILD_EXAMPLES=ON \
+      -DFG_BUILD_DOCS=OFF
 
   make -j8
 }
