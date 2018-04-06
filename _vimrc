@@ -79,6 +79,8 @@ autocmd FileType c,cpp set comments+=://
 
 " Do not indent ':' in C++.
 autocmd FileType c,cpp setlocal cinkeys-=:
+" Do not indent namespaces in C++.
+set cino=N-s
 
 " base16 color scheme
 set termguicolors
