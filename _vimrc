@@ -170,6 +170,11 @@ set nowrap        " Do not wrap lines longer than the width of the screen.
 set tabpagemax=90 " Raise a limit of opened tabs.
 set breakindent   " Keep indentation when wrapping lines.
 
+" Set inccommand for NeoVim to see substitution changes interactively
+if exists('&inccommand')
+  set inccommand=split
+endif
+
 " Define some pretty whitespace chars
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:·
 
