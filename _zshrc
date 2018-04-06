@@ -26,10 +26,6 @@ source "${ZSH}/oh-my-zsh.sh"
 # Accept autosuggestions using Ctrl+Space
 bindkey "^ " autosuggest-execute
 
-# Use Vim mode, but keep the Ctrl+R shortcut to search the history.
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
-
 # Enable aliases to pass through sudo.
 alias sudo='sudo '
 
