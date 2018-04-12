@@ -1,0 +1,10 @@
+[Unit]
+Description=Send systemd status for unit %i via email
+# The intended usage is to put `OnFailure=systemd-status-email@%n.service`
+# to the [Unit] section in your unit.
+
+[Service]
+Type=oneshot
+ExecStart=/home/USER/bin/systemd-status-email ADDRESS %i
+User=nobody
+Group=systemd-journal
