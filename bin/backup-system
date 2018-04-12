@@ -1,18 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 dst=${1:-/backup.tar.xz}
 
 # A simple script to backup the whole system using tar.
 
-tar --exclude="/dev/*" \
-    --exclude="/proc/*" \
-    --exclude="/sys/*" \
-    --exclude="/tmp/*" \
-    --exclude="/run/*" \
-    --exclude="/mnt/*" \
-    --exclude="/media/*" \
-    --exclude="/lost+found" \
-    --exclude="/home/floop/Downloads/*" \
-    --exclude="$dst" \
-    --xattrs \
-    -cpvJf "$dst" \
+tar --exclude="${dst}/*" \
+    --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
+    --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
+    --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
+    --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
+    --exclude={"/var/log/*","/var/cache/*"} \
+    --exclude={"*~","~*"} \
+    --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
+    --exclude={"*/.Trash/*","*/.Trash-*"} \
+    --xattrs --acls \
+    -cpJf "$dst" \
     /*

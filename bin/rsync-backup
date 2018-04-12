@@ -59,6 +59,7 @@ exit_code=0
 rsync ${rsync_opts} \
       --link-dest="../${last}" \
       --exclude="${tmpdir}/*" \
+      --exclude="${dst}/*" \
       --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
       --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
       --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
