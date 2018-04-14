@@ -1,0 +1,95 @@
+#!/bin/bash
+set -e
+
+# A tool for a versioned backup using only rsync.
+
+# This tool creates a snapshot folder in the destination URL named by the current datetime.
+# After synchronizing the selected source folders to the snapshot folder, it creates a symlink
+# named `last` pointing to the created snapshot folder. When creating a new snapshot, the files
+# from the `last` snapshot that have not changed are automatically hardlinked.
+
+# Since the tool uses only rsync, it is possible to backup to rsync daemon.
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 src dst"
+  echo "Example over ssh: $0 / root@192.168.0.1:/snapshots"
+  echo "Example over rsync: $0 / rsync://root@192.168.0.1/snapshots"
+  echo "Example local: $0 /home/user /user-snapshots"
+  exit 1
+fi
+
+# Source folders to be backed up (many system folders, caches, etc., are skipped automatically).
+src="${1}"
+# Remote server address.
+dst="${2}"
+
+# The number of snapshots to keep +1. The +1 is for the symlink to the latest snapshot.
+# Set to -1 to diable the pruning of old snapshots.
+# Note that using this option requires the destination to be a local folder.
+keep=-1
+# The name of the symlink to the most recent snapshot.
+last="last"
+# The name of the new snapshot.
+snapshot_name=`date +"%Y%m%d%H%M"`
+# rsync options.
+rsync_opts="--archive --xattrs --acls"
+
+# ---
+# Create a temporary directory and clean it on exit.
+# ---
+tmpdir="`mktemp -d --tmpdir rsync-backup.XXXXXX`"
+echo "Temporary directory: ${tmpdir}"
+function cleanup {
+    rm -rf "${tmpdir}"
+}
+trap cleanup INT TERM EXIT
+
+# ---
+# Create the snapshot directory in the destination.
+# ---
+echo "Creating the destination directory ${dst}/${snapshot_name}."
+mkdir "${tmpdir}/${snapshot_name}"
+rsync --recursive "${tmpdir}/${snapshot_name}" "${dst}"
+
+# ---
+# Sync the snapshot.
+# ---
+echo "Syncing snapshot to ${dst}/${snapshot_name}."
+exit_code=0
+rsync ${rsync_opts} \
+      --link-dest="../${last}" \
+      --exclude="${tmpdir}/*" \
+      --exclude="${dst}/*" \
+      --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
+      --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
+      --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
+      --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
+      --exclude={"/var/log/*","/var/cache/*"} \
+      --exclude={"*~","~*"} \
+      --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
+      --exclude={"*/.Trash/*","*/.Trash-*"} \
+      ${src}/ "${dst}/${snapshot_name}" || exit_code=$?
+# Allow errors caused by vanished source files.
+if [ "${exit_code}" -ne 0 ] && [ "${exit_code}" -ne 24 ]; then
+    echo "Rsync failed with error code ${error_code}."
+    exit ${error_code}
+fi
+
+# ---
+# Create the link to the latest snapshot.
+# ---
+echo "Creating the symlink to the latest snapshot."
+ln -s "${snapshot_name}" "${tmpdir}/${last}"
+rsync --links --progress "${tmpdir}/${last}" "${dst}"
+
+# ---
+# Remove old snapshots (this requires the remote system to be mounted).
+# ---
+# This should be done last to avoid the loss of valid backups when rsync fails
+# multiple times.
+if [ "${keep}" -gt -1 ]; then
+    for dir in `ls -1d "${dst}"/* | head -n -"${keep}"`; do
+        echo "Removing old snapshot ${dir}."
+        rm -rf "${dir}"
+    done
+fi
