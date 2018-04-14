@@ -17,5 +17,5 @@ function cleanup {
 trap cleanup INT TERM EXIT
 
 docker run -it -v "$1":/volume -v /tmp:/tmp-host alpine \
-  tar --xattrs -cpvjf "/tmp-host/${tmp_file}" -C /volume ./
+  tar -cvjf "/tmp-host/${tmp_file}" -C /volume ./
 mv -v "/tmp/${tmp_file}" "${dst_file}"
