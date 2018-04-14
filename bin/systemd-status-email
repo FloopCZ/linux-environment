@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Send status email for a systemd unit.
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 ADDRESS UNIT"
+  exit 1
+fi
+
+/usr/bin/sendmail -t <<SYSTEMDSTATUSMAIL
+To: ${1}
+From: systemd <root@${HOSTNAME}>
+Subject: Status of ${2}
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+$(systemctl status -n 100 --full "${2}")
+SYSTEMDSTATUSMAIL
