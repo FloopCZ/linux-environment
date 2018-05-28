@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A script to convert a text file from cp1250 to utf8.
 
