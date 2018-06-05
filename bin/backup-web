@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # A utility that archives a folder and a database into a backup directory
@@ -12,7 +12,11 @@ fi
 # files to backup
 srcdir="$1"
 # mysql database to dump
-dbsrc="-u$3 -p$4 $2"
+dbsrc="$2"
+# mysql user
+dbuser="$3"
+# mysql user password
+dbpass="$4"
 # destination directory
 dstdir="$5"
 # number of backups to keep
@@ -29,12 +33,12 @@ function cleanup {
   chmod -R ug+rw "$tmpdir"
   rm -rf "$tmpdir"
 }
-trap cleanup EXIT
+trap cleanup INT TERM EXIT
 
 # copy files to temp dir
 nice -n 20 cp --archive "$srcdir" "$tmpdir"
 # dump database to temp dir
-mysqldump "$dbsrc" > "$tmpdir"/db.sql
+mysqldump --user="$dbuser" --password="$dbpass" "$dbsrc" > "$tmpdir"/db.sql
 # compress the temp dir to the destination dir
 nice -n 20 archive -c "$dstdir"/`date +"%Y%m%d%H%M"`_backup.tar.xz "$tmpdir"
 

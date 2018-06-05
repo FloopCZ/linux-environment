@@ -4,12 +4,15 @@ Language: Cpp
 BasedOnStyle: LLVM
 
 AccessModifierOffset: -4
+AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true
+BinPackParameters: false
+AlignAfterOpenBracket: AlwaysBreak
 BreakBeforeBraces: Stroustrup
 BreakConstructorInitializersBeforeComma: true
 BreakStringLiterals: true

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # A utility that archives a folder into a backup directory
@@ -27,7 +27,7 @@ function cleanup {
   chmod -R ug+rw "$tmpdir"
   rm -rf "$tmpdir"
 }
-trap cleanup EXIT
+trap cleanup INT TERM EXIT
 
 # copy files to temp dir
 nice -n 20 cp --archive "$srcdir" "$tmpdir"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A script to make a SOCKS tunnel through a remote SSH server.
 
