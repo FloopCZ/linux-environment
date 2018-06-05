@@ -2,13 +2,12 @@
 pkgname=arrayfire
 pkgdesc="High performance software library for parallel computing with an easy-to-use API"
 url='https://arrayfire.com'
-pkgver=3.6
+pkgver=3.7.0
 arch=('x86_64')
 pkgrel=1
 license=('BSD')
-makedepends=('cmake' 'opencl-headers' 'glfw' 'glew' 'boost' 'git' 'python' 'ocl-icd' 'gcc6')
-makedepends_x86_64=('cuda' 'nvidia-utils')
-depends=('cblas' 'fftw' 'boost-libs' 'lapacke' 'forge' 'freeimage' 'glfw' 'glew')
+makedepends=('cmake' 'graphviz' 'doxygen' 'opencl-headers' 'boost' 'python' 'ocl-icd' 'cuda' 'git' 'openmp')
+depends=('cblas' 'fftw' 'boost-libs' 'lapacke' 'forge' 'freeimage' 'glfw' 'glew' 'glbinding')
 optdepends=('cuda: Required for using CUDA backend'
             'nvidia-utils: Required for using CUDA backend'
             'libclc: Required for using OpenCL backend')
@@ -19,41 +18,40 @@ conflicts=('arrayfire')
 
 prepare() {
   cd "${srcdir}/arrayfire"
-
-  # patches here
-  sed -i "/NVCC does not support GCC version 6.0/d" src/backend/cuda/CMakeLists.txt
+  rm -rf build && mkdir build
 }
 
 build() {
   cd "${srcdir}/arrayfire"
   git submodule init
   git submodule update
+  cd build
 
-  # rm -rf build
-  mkdir -p build && cd build
-
-  export CC=gcc-6
-  export CXX=g++-6
+  export CFLAGS="${CFLAGS} -march=native"
+  export CXXFLAGS="${CXXFLAGS} -march=native"
   cmake .. \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_BUILD_TYPE=Release \
+      -DAF_USE_SYSTEM_FORGE=ON \
+      -DAF_WITH_IMAGEIO=ON \
+      -DAF_WITH_GRAPHICS=ON \
       -DAF_BUILD_CUDA=ON \
       -DAF_BUILD_CPU=ON \
       -DAF_BUILD_OPENCL=ON \
       -DAF_OPENCL_BLAS_LIBRARY=CLBlast \
-      -DAF_BUILD_EXAMPLES=ON \
-      -DAF_BUILD_DOCS=OFF \
       -DAF_WITH_NONFREE=ON \
-      -DAF_WITH_GRAPHICS=ON \
-      -DAF_USE_SYSTEM_FORGE=ON \
-      -DBUILD_TESTING=OFF
+      -DAF_BUILD_EXAMPLES=ON \
+      -DAF_BUILD_DOCS=ON \
+      -DBUILD_TESTING=ON \
+      -DCUDA_architecture_build_targets="3.0;6.1" \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCUDA_HOST_COMPILER=/usr/bin/gcc-7
 
   make -j8
 }
 
 check() {
   cd "${srcdir}/arrayfire/build"
-  # some tests are failing :-(
+  # some tests are failing
   # make test
 }
 
