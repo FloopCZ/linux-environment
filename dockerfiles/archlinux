@@ -3,16 +3,18 @@ FROM cognexa/cxflow-tensorflow-cxtream:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
 # install extra packages
-RUN pacman --noconfirm --needed -S \
+RUN pacman --noconfirm --needed -Syu \
       arrayfire \
       cpulimit \
       clang \
       eigen \
+      gtest \
       ipython \
       jupyter-notebook \
       libclc               `# arrayfire opencl support` \
       parallel \
       python-ipywidgets \
+      range-v3 \
   && paccache -rfk0
 
 # install linux environment
