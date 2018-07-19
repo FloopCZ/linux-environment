@@ -59,6 +59,10 @@ ln -srfv _ycm_extra_conf.py ~/.ycm_extra_conf.py
 # copy ideavim config
 ln -srfv _vimrc ~/.ideavimrc
 
+# copy terminator config
+mkdir -vp ~/.config/terminator
+ln -srfv _terminator_config ~/.config/terminator/config
+
 # install oh-my-zsh
 ln -srfTv oh-my-zsh ~/.oh-my-zsh
 # install oh-my-zsh custom folder
