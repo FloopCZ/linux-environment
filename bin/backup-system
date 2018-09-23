@@ -3,7 +3,7 @@ dst=${1:-/backup.tar.xz}
 
 # A simple script to backup the whole system using tar.
 
-tar --exclude="${dst}/*" \
+tar --exclude="${dst}" \
     --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
     --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
     --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
@@ -11,7 +11,7 @@ tar --exclude="${dst}/*" \
     --exclude={"/var/log/*","/var/cache/*"} \
     --exclude={"*~","~*"} \
     --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
-    --exclude={"*/.Trash/*","*/.Trash-*"} \
+    --exclude={"*/.Trash/*","*/.Trash-*/*"} \
     --xattrs --acls \
-    -cpJf "$dst" \
+    -cvpf "${dst}" \
     /*
