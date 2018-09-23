@@ -7,9 +7,9 @@ filetype plugin indent on
 " Load vim-plug plugins.
 " Don't forget to call `:PlugInstall`.
 call plug#begin('~/.config/nvim/plugged')
-Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
@@ -82,17 +82,18 @@ autocmd FileType c,cpp setlocal cinkeys-=:
 " Do not indent namespaces in C++.
 set cino=N-s
 
-" base16 color scheme
+" gruvbox color scheme
 set termguicolors
 set background=dark
-silent! colorscheme base16-solarized-dark
+let g:gruvbox_contrast_dark = "hard"
+silent! colorscheme gruvbox
 " Allow changing the background from dark to light using F5
 function! ColorToggle()
     if (&background == "dark")
-        colorscheme base16-solarized-light
+        colorscheme gruvbox
         set background=light
     else
-        colorscheme base16-solarized-dark
+        colorscheme gruvbox
         set background=dark
     endif
 endfunction
