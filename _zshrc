@@ -53,17 +53,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   umask 007
 # fi
 
-# Do not expand all wildcards by default, only show menu listing matching patterns.
-setopt GLOB_COMPLETE
-# Use Ctrl+F for the full expansion.
-expand-full () {
-  unsetopt GLOB_COMPLETE
-  expand-or-complete-with-dots
-  setopt GLOB_COMPLETE
-}
-zle -N expand-full
-bindkey "^F" expand-full
-
 # Find the right sequences of special keys.
 typeset -A key
 key[Home]=${terminfo[khome]}
