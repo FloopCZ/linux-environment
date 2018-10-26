@@ -1,5 +1,5 @@
 ARG tag="latest"
-FROM cognexa/cxflow-tensorflow-cxtream:${tag}
+FROM iterait/emloop-tensorflow-hipipe:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
 # install extra packages
@@ -32,61 +32,11 @@ RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
 
-## install cling C++ jupyter notebook plugin
-#RUN sudo -u aur trizen --noconfirm --needed -S \
-#      cling-jupyter-git \
-#  && paccache -rfk0 \
-#  && trizen -Scc --noconfirm
-
-# install xeus-cling C++ jupyter notebook plugin
-## dependencies
-#RUN sudo -u aur trizen --noconfirm --needed -S \
-#      cling-jupyter-git \
-#      cxxopts \
-#      nlohmann-json \
-#      pugixml \
-#  && paccache -rfk0 \
-#  && trizen -Scc --noconfirm
-## xtl
-#RUN git clone --recursive https://github.com/QuantStack/xtl.git \
-#  && mkdir -p xtl/build && cd xtl/build \
-#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r xtl
-## libzmq
-#RUN git clone --recursive https://github.com/zeromq/libzmq.git \
-#  && mkdir -p libzmq/build && cd libzmq/build \
-#  && cmake -DWITH_PERF_TOOL=OFF -DZMQ_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r libzmq
-## cppzmq
-#RUN git clone --recursive https://github.com/zeromq/cppzmq.git \
-#  && mkdir -p cppzmq/build && cd cppzmq/build \
-#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r cppzmq
-## crypto++
-#RUN git clone --recursive https://github.com/weidai11/cryptopp \
-#  && cd cryptopp \
-#  && git clone --recursive https://github.com/noloader/cryptopp-cmake.git \
-#  && cp cryptopp-cmake/cryptopp-config.cmake . \
-#  && cp cryptopp-cmake/CMakeLists.txt . \
-#  && mkdir -p build && cd build \
-#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r cryptopp
-## xeus
-#RUN git clone --recursive https://github.com/QuantStack/xeus.git \
-#  && mkdir -p xeus/build && cd xeus/build \
-#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r xeus
-## xeus-cling
-#RUN git clone --recursive https://github.com/QuantStack/xeus-cling.git \
-#  && mkdir -p xeus-cling/build && cd xeus-cling/build \
-#  && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#  && make -j4 && make install && ldconfig \
-#  && cd ../../ && rm -r xeus-cling
+# install cling C++ jupyter notebook plugin
+# RUN sudo -u aur trizen --noconfirm --needed -S \
+#       cling-jupyter-git \
+#   && paccache -rfk0 \
+#   && trizen -Scc --noconfirm
 
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
