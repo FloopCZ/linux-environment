@@ -9,10 +9,10 @@ fi
 
 /usr/bin/sendmail -t <<SYSTEMDSTATUSMAIL
 To: ${1}
-From: systemd <root@${HOSTNAME}>
+From: systemd <root@$(hostname -f)>
 Subject: Status of ${2}
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=UTF-8
 
-$(systemctl status -n 100 --full "${2}")
+$(systemctl status -n 1000 --full "${2}")
 SYSTEMDSTATUSMAIL
