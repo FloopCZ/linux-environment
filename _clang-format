@@ -12,6 +12,7 @@ AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true
 BinPackParameters: false
+BinPackArguments: false
 AlignAfterOpenBracket: AlwaysBreak
 BreakBeforeBraces: Stroustrup
 BreakConstructorInitializersBeforeComma: true
