@@ -1,0 +1,42 @@
+#!/bin/bash -e
+# Back up the whole system via restic.
+
+### Configuration. ###
+
+# For e.g. BackBlaze B2, create /etc/restic/b2_env.sh
+# with the following contents:
+# export B2_ACCOUNT_ID="<APPLICATION_KEY_ID>"
+# export B2_ACCOUNT_KEY="<APPLICATION_KEY>"
+# export RESTIC_REPOSITORY="b2:<BUCKET_NAME>"
+# export RESTIC_PASSWORD="<RESTIC_PASSWORD>"
+
+source /etc/restic/b2_env.sh
+src="/"
+
+keep_daily=1
+keep_weekly=1
+keep_monthly=6
+keep_yearly=2
+
+### Run the backup. ###
+
+restic backup \
+  --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
+  --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
+  --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
+  --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
+  --exclude={"/var/log/*","/var/lib/docker/*","/var/lib/~docker/*","/var/cache/*"} \
+  --exclude={"*~","~*"} \
+  --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
+  --exclude={"*/.Trash/*","*/.Trash-*"} \
+  --one-file-system \
+  ${src}
+
+### Remove old backups. ###
+
+restic forget \
+  --keep-daily "${keep_daily}" \
+  --keep-weekly "${keep_weekly}" \
+  --keep-monthly "${keep_monthly}" \
+  --keep-yearly "${keep_yearly}" \
+  --prune
