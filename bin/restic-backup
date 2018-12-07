@@ -27,6 +27,13 @@ keep_weekly="${3:-1}"
 keep_monthly="${4:-1}"
 keep_yearly="${5:-1}"
 
+### Unlock the repository. ###
+
+echo "List all locks:"
+restic list locks
+echo "Unlocking stale locks."
+restic unlock
+
 ### Run the backup. ###
 
 restic backup \
