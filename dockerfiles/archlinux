@@ -12,6 +12,7 @@ RUN pacman --noconfirm --needed -Syu \
       ipython \
       jupyter-notebook \
       libclc               `# arrayfire opencl support` \
+      openssh \
       parallel \
       python-ipywidgets \
       range-v3 \
@@ -43,3 +44,8 @@ RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter contrib nbextension install --system \
   && pip install --upgrade --no-cache-dir jupyter_nbextensions_configurator \
   && jupyter nbextensions_configurator enable --system
+
+# set up ssh server
+RUN echo "HappilyEverAfter" | passwd root --stdin
+RUN ssh-keygen -A && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+ENTRYPOINT ["/usr/bin/sshd", "-D"]
