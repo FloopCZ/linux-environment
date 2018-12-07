@@ -46,6 +46,6 @@ RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter nbextensions_configurator enable --system
 
 # set up ssh server
-RUN echo "HappilyEverAfter" | passwd root --stdin
+RUN echo "root:HappilyEverAfter" | chpasswd
 RUN ssh-keygen -A && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 ENTRYPOINT ["/usr/bin/sshd", "-D"]
