@@ -4,12 +4,15 @@
 # For e.g. BackBlaze B2, don't forget to set
 # the following environmental varaibles:
 #
-# export B2_ACCOUNT_ID="<APPLICATION_KEY_ID>"
-# export B2_ACCOUNT_KEY="<APPLICATION_KEY>"
-# export RESTIC_REPOSITORY="b2:<BUCKET_NAME>"
-# export RESTIC_PASSWORD="<RESTIC_PASSWORD>"
+# B2_ACCOUNT_ID="<APPLICATION_KEY_ID>"
+# B2_ACCOUNT_KEY="<APPLICATION_KEY>"
+# RESTIC_REPOSITORY="b2:<BUCKET_NAME>"
+# RESTIC_PASSWORD="<RESTIC_PASSWORD>"
 #
-# A good place for those could be e.g., /etc/restic/b2_env.sh.
+# One way to do that is to copy the previous lines
+# to e.g., /etc/restic/b2.env. Such a file can be directly
+# used in systemd unit or as:
+# env $(cat /etc/restic/b2.env | xargs) restic-backup
 
 if [ $# -lt 1 ]; then
   echo "Usage: $0 srcdir [keep_daily] [keep_weekly] [keep_monthly] [keep_yearly]"
