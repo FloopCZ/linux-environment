@@ -6,3 +6,7 @@ Type=oneshot
 Environment="XDG_CACHE_HOME=/var/cache"
 EnvironmentFile=/etc/restic/ACCOUNT.env
 ExecStart=/home/USER/bin/restic-backup SRCDIR 1 1 6 2
+
+[Unit]
+Wants=network-online.target
+After=network-online.target

@@ -1,17 +1,18 @@
 #!/bin/bash -e
 # Back up a folder via restic.
 
-# For e.g. BackBlaze B2, don't forget to set
-# the following environmental varaibles:
+# For e.g. BackBlaze B2, initialize the following
+# environmental varaibles:
 #
 # B2_ACCOUNT_ID="<APPLICATION_KEY_ID>"
 # B2_ACCOUNT_KEY="<APPLICATION_KEY>"
 # RESTIC_REPOSITORY="b2:<BUCKET_NAME>"
 # RESTIC_PASSWORD="<RESTIC_PASSWORD>"
 #
-# One way to do that is to copy the previous lines
-# to e.g., /etc/restic/b2.env. Such a file can be directly
-# used in systemd unit or as:
+# A secure way to do that is to copy the previous lines
+# to e.g., /etc/restic/b2.env and restrict its permissions.
+# This file can be used in systemd units via `EnvironmentFile`
+# directive or it can be used on command line as:
 # env $(cat /etc/restic/b2.env | xargs) restic-backup
 
 if [ $# -lt 1 ]; then
