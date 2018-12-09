@@ -2,6 +2,13 @@ ARG tag="latest"
 FROM iterait/emloop-tensorflow-hipipe:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
+# set up users and passwords
+RUN useradd -m -s /usr/bin/zsh somebody \
+  && echo 'user ALL=(ALL) ALL' > /etc/sudoers.d/somebody \
+  && echo 'Defaults env_keep += "EDITOR"' >> /etc/sudoers.d/somebody \
+  && echo "somebody:bluntMoreWater" | chpasswd \
+  && echo "root:crudePlayfulSpoon" | chpasswd
+
 # install extra packages
 RUN pacman --noconfirm --needed -Syu \
       arrayfire \
@@ -11,19 +18,26 @@ RUN pacman --noconfirm --needed -Syu \
       gtest \
       ipython \
       jupyter-notebook \
-      libclc               `# arrayfire opencl support` \
+      libclc `# arrayfire opencl support` \
       openssh \
       parallel \
       python-ipywidgets \
       range-v3 \
   && paccache -rfk0
 
-# install linux environment
+# install linux environment for root
 RUN cd /root \
   && git clone https://github.com/FloopCZ/linux-environment.git \
   && cd linux-environment \
   && ./deploy.sh --install \
   && paccache -rfk0
+
+# install linux environment for unprivileged user
+RUN cp -r /root/linux-environment /home/somebody/ \
+  && chown -R somebody:somebody /home/somebody/linux-environment
+USER somebody
+RUN cd /home/somebody/linux-environment && ./deploy.sh
+USER root
 
 # install pycma
 RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
@@ -33,19 +47,12 @@ RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
   && paccache -rfk0 \
   && trizen -Scc --noconfirm
 
-# install cling C++ jupyter notebook plugin
-# RUN sudo -u aur trizen --noconfirm --needed -S \
-#       cling-jupyter-git \
-#   && paccache -rfk0 \
-#   && trizen -Scc --noconfirm
-
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && jupyter contrib nbextension install --system \
   && pip install --upgrade --no-cache-dir jupyter_nbextensions_configurator \
   && jupyter nbextensions_configurator enable --system
 
-# set up ssh server
-RUN echo "root:HappilyEverAfter" | chpasswd
+# start ssh server
 RUN ssh-keygen -A && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 ENTRYPOINT ["/usr/bin/sshd", "-D"]
