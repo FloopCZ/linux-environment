@@ -4,7 +4,7 @@ MAINTAINER Filip Matzner <docker@floop.cz>
 
 # set up users and passwords
 RUN useradd -m -s /usr/bin/zsh somebody \
-  && echo 'user ALL=(ALL) ALL' > /etc/sudoers.d/somebody \
+  && echo 'somebody ALL=(ALL) ALL' > /etc/sudoers.d/somebody \
   && echo 'Defaults env_keep += "EDITOR"' >> /etc/sudoers.d/somebody \
   && echo "somebody:bluntMoreWater" | chpasswd \
   && echo "root:crudePlayfulSpoon" | chpasswd
