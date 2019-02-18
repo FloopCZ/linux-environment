@@ -25,7 +25,7 @@ __tmux__
 | `Ctrl-b %`       | Split window horizontally.             |
 | `Ctrl-b _`       | Split window vertically.               |
 | `Ctrl-b x`       | Kill frozen pane.                      |
-| `Alt-h/l`        | Move one window left/right.            |
+| `Ctrl-y/o`       | Move one window left/right.            |
 | `Ctrl-h/j/k/l`   | Move one pane left/down/up/right.      |
 | `Ctrl-b d`       | Detach current session.                |
 | `tmux a`         | Reattach a detached session.           |
