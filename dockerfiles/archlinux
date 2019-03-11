@@ -22,15 +22,13 @@ RUN pacman --noconfirm --needed -Syu \
       openssh \
       parallel \
       python-ipywidgets \
-      range-v3 \
-  && paccache -rfk0
+      range-v3
 
 # install linux environment for root
 RUN cd /root \
   && git clone https://github.com/FloopCZ/linux-environment.git \
   && cd linux-environment \
-  && ./deploy.sh --install \
-  && paccache -rfk0
+  && ./deploy.sh --install
 
 # install linux environment for unprivileged user
 RUN cp -r /root/linux-environment /home/somebody/ \
@@ -44,7 +42,6 @@ RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
 
 # install libcmaes
 RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
-  && paccache -rfk0 \
   && trizen -Scc --noconfirm
 
 # install jupyter nbextensions
