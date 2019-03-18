@@ -13,6 +13,9 @@ COMPLETION_WAITING_DOTS="true"
 # Use a different history date format.
 HIST_STAMPS="yyyy-mm-dd"
 
+# Allow longer history
+SAVEHIST=20000
+
 # Autostart tmux.
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOQUIT=false
