@@ -8,6 +8,15 @@ if [ "$1" = "--install" ]; then
       pacman -Syu --noconfirm --needed sudo || true
       sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions
+      # Trizen
+      if ! hash trizen 2>/dev/null; then
+          git clone https://aur.archlinux.org/trizen.git /tmp/trizen
+          cd /tmp/trizen
+          makepkg
+          sudo pacman -U --noconfirm --needed trizen-*.pkg.tar.xz
+          cd -
+          rm -rf /tmp/trizen
+      fi
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
@@ -31,7 +40,7 @@ if [ "$1" = "--install" ]; then
   fi
 
   # install basic packages
-  sudo $pacman_bin git neovim zsh tmux htop zip unzip mc xsel curl trash-cli
+  sudo $pacman_bin git neovim python-neovim zsh tmux htop zip unzip mc xsel curl trash-cli
 fi
 
 # get submodules
@@ -94,12 +103,12 @@ mkdir -vp ~/bin
 ln -srfv bin/* ~/bin/
 
 # copy ssh config
-mkdir -p ~/.ssh
+mkdir -vp ~/.ssh
 ln -srfv _ssh_config ~/.ssh/config
 
 # copy ssh-key agent (if not in docker)
 if [ ! -f /.dockerenv ]; then
-    mkdir -p ~/.config/systemd/user
+    mkdir -vp ~/.config/systemd/user
     ln -srfv systemd-templates/ssh-agent.service ~/.config/systemd/user
     systemctl --user enable ssh-agent.service
     systemctl --user start ssh-agent.service
