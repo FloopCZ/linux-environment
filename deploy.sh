@@ -10,18 +10,18 @@ if [ "$1" = "--install" ]; then
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Trizen
       if ! hash trizen 2>/dev/null; then
-          git clone https://aur.archlinux.org/trizen.git /tmp/trizen
+          sudo -u nobody git clone https://aur.archlinux.org/trizen.git /tmp/trizen
           cd /tmp/trizen
-          makepkg
+          sudo -u nobody makepkg
           sudo pacman -U --noconfirm --needed trizen-*.pkg.tar.xz
           cd -
           rm -rf /tmp/trizen
       fi
       # Direnv
       if ! hash direnv 2>/dev/null; then
-          git clone https://aur.archlinux.org/direnv.git /tmp/direnv
+          sudo -u nobody git clone https://aur.archlinux.org/direnv.git /tmp/direnv
           cd /tmp/direnv
-          makepkg
+          sudo -u nobody makepkg
           sudo pacman -U --noconfirm --needed direnv-*.pkg.tar.xz
           cd -
           rm -rf /tmp/direnv
