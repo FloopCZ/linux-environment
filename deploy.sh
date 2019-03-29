@@ -7,7 +7,7 @@ if [ "$1" = "--install" ]; then
       # Arch linux
       pacman -Syu --noconfirm --needed sudo || true
       sudo pacman -Syu --noconfirm
-      sudo pacman -S --noconfirm --needed base-devel zsh-completions
+      sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Trizen
       if ! hash trizen 2>/dev/null; then
           git clone https://aur.archlinux.org/trizen.git /tmp/trizen
