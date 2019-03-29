@@ -17,6 +17,15 @@ if [ "$1" = "--install" ]; then
           cd -
           rm -rf /tmp/trizen
       fi
+      # Direnv
+      if ! hash direnv 2>/dev/null; then
+          git clone https://aur.archlinux.org/direnv.git /tmp/direnv
+          cd /tmp/direnv
+          makepkg
+          sudo pacman -U --noconfirm --needed direnv-*.pkg.tar.xz
+          cd -
+          rm -rf /tmp/direnv
+      fi
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
@@ -25,7 +34,7 @@ if [ "$1" = "--install" ]; then
       dnf -y install sudo || true
       sudo dnf -y upgrade
       sudo dnf -y group install 'Development Tools'
-      sudo dnf -y install util-linux-user
+      sudo dnf -y install util-linux-user direnv
       pacman_bin="dnf -y install"
   elif hash apt-get 2>/dev/null; then
       # Debian/Ubuntu
@@ -33,7 +42,7 @@ if [ "$1" = "--install" ]; then
       apt-get -y install sudo || true
       sudo apt-get -y update
       sudo apt-get -y upgrade
-      sudo apt-get -y install build-essential libpam-systemd
+      sudo apt-get -y install build-essential libpam-systemd direnv
       pacman_bin="apt-get -y install"
   else
       pacman_bin=/bin/false
