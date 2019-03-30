@@ -23,13 +23,9 @@ if [ "$1" = "--install" ]; then
       sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Trizen
-      if ! hash trizen 2>/dev/null; then
-          aur_install trizen
-      fi
+      if ! hash trizen 2>/dev/null; then aur_install trizen; fi
       # Direnv
-      if ! hash direnv 2>/dev/null; then
-          aur_install direnv
-      fi
+      if ! hash direnv 2>/dev/null; then aur_install direnv; fi
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
