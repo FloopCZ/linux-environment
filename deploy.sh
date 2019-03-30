@@ -5,12 +5,11 @@ set -e
 # This function works even for root (as opposed to plain makepkg -si).
 # Usage: aur_install PACKAGE_NAME
 aur_install() (
-  XDG_CACHE_HOME="/tmp/.cache"
   sudo -u nobody git clone "https://aur.archlinux.org/$1.git" "/tmp/$1"
   cd "/tmp/$1"
   source PKGBUILD
   sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
-  sudo -u nobody makepkg
+  sudo -u nobody XDG_CACHE_HOME="/tmp/.cache" makepkg
   sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.xz
   cd /tmp
   sudo rm -rf "/tmp/$1"
