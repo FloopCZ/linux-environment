@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+# Install a package from Arch User Repository
+# This function works even for root (as opposed to plain makepkg -si).
+# Usage: aur_install PACKAGE_NAME
+aur_install() (
+  sudo -u nobody git clone "https://aur.archlinux.org/$1.git" "/tmp/$1"
+  cd "/tmp/$1"
+  source PKGBUILD
+  sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
+  sudo -u nobody makepkg
+  sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.xz
+  cd /tmp
+  sudo rm -rf "/tmp/$1"
+)
+
 if [ "$1" = "--install" ]; then
   # identify package manager, upgrade and install OS specific packages
   if hash pacman 2>/dev/null; then
@@ -10,21 +24,11 @@ if [ "$1" = "--install" ]; then
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Trizen
       if ! hash trizen 2>/dev/null; then
-          sudo -u nobody git clone https://aur.archlinux.org/trizen.git /tmp/trizen
-          cd /tmp/trizen
-          sudo -u nobody makepkg
-          sudo pacman -U --noconfirm --needed trizen-*.pkg.tar.xz
-          cd -
-          rm -rf /tmp/trizen
+          aur_install trizen
       fi
       # Direnv
       if ! hash direnv 2>/dev/null; then
-          sudo -u nobody git clone https://aur.archlinux.org/direnv.git /tmp/direnv
-          cd /tmp/direnv
-          sudo -u nobody makepkg
-          sudo pacman -U --noconfirm --needed direnv-*.pkg.tar.xz
-          cd -
-          rm -rf /tmp/direnv
+          aur_install direnv
       fi
       # dual-booting
       #sudo pacman -S os-prober
