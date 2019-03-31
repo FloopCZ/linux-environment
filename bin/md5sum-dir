@@ -1,0 +1,12 @@
+#!/bin/bash
+# Calculate md5 hash of every file in a folder.
+# The output is sorted by file name.
+# To only compare two folders, you can pipe the output to md5sum.
+set -e
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 DIR"
+  exit 1
+fi
+
+find -L "$1" -type f -exec md5sum {} \; | sort -k 2
