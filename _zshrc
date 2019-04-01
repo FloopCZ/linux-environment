@@ -20,6 +20,9 @@ SAVEHIST=20000
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOQUIT=false
 
+# Disable oh-my-zsh autoupdate.
+DISABLE_AUTO_UPDATE=true
+
 # Load plugins and oh-my-zsh.
 plugins=(
   git
