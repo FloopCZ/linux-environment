@@ -25,11 +25,12 @@ DISABLE_AUTO_UPDATE=true
 
 # Load plugins and oh-my-zsh.
 plugins=(
+  archlinux
   git
+  pyenv
+  sudo
   tmux
   vi-mode
-  archlinux
-  sudo
   zsh-autosuggestions
 )
 source "${ZSH}/oh-my-zsh.sh"
