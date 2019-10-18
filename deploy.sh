@@ -29,6 +29,7 @@ if [ "$1" = "--install" ]; then
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
+      pynvim_pkg="python-pynvim"
   elif hash dnf 2>/dev/null; then
       # Fedora
       dnf -y install sudo || true
@@ -36,6 +37,7 @@ if [ "$1" = "--install" ]; then
       sudo dnf -y group install 'Development Tools'
       sudo dnf -y install util-linux-user direnv
       pacman_bin="dnf -y install"
+      pynvim_pkg="python3-neovim"
   elif hash apt-get 2>/dev/null; then
       # Debian/Ubuntu
       apt-get -y update || true
@@ -44,12 +46,13 @@ if [ "$1" = "--install" ]; then
       sudo apt-get -y upgrade
       sudo apt-get -y install build-essential libpam-systemd direnv
       pacman_bin="apt-get -y install"
+      pynvim_pkg="python3-neovim"
   else
       pacman_bin=/bin/false
   fi
 
   # install basic packages
-  sudo $pacman_bin git neovim python-neovim zsh tmux htop zip unzip mc xsel curl trash-cli
+  sudo $pacman_bin git neovim ${pynvim_pkg} zsh tmux htop zip unzip mc xsel curl trash-cli
 fi
 
 # get submodules
