@@ -1,0 +1,16 @@
+[Unit]
+Description=A service that needs X server
+
+[Service]
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/<USER>/.Xauthority
+WorkingDirectory=/home/<USER>/
+ExecStart=<EXECUTABLE>
+#Restart=always
+#RestartSec=5s
+#TimeoutSec=infinity
+User=<USER>
+Group=<GROUP>
+
+[Install]
+WantedBy=graphical.target
