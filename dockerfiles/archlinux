@@ -1,5 +1,5 @@
 ARG tag="latest"
-FROM iterait/emloop-tensorflow-hipipe:${tag}
+FROM iterait/archlinux-dev:${tag}
 MAINTAINER Filip Matzner <docker@floop.cz>
 
 # set up users and passwords
@@ -8,21 +8,6 @@ RUN useradd -m -s /usr/bin/zsh somebody \
   && echo 'Defaults env_keep += "EDITOR"' >> /etc/sudoers.d/somebody \
   && echo "somebody:bluntMoreWater" | chpasswd \
   && echo "root:crudePlayfulSpoon" | chpasswd
-
-# install extra packages
-RUN pacman --noconfirm --needed -Syu \
-      arrayfire \
-      cpulimit \
-      clang \
-      eigen \
-      gtest \
-      ipython \
-      jupyter-notebook \
-      libclc `# arrayfire opencl support` \
-      openssh \
-      parallel \
-      python-ipywidgets \
-      range-v3
 
 # install linux environment for root
 RUN cd /root \
@@ -37,12 +22,12 @@ USER somebody
 RUN cd /home/somebody/linux-environment && ./deploy.sh
 USER root
 
-# install pycma
-RUN pip install --upgrade --no-cache-dir git+https://github.com/CMA-ES/pycma.git
-
-# install libcmaes
-RUN sudo -u aur trizen --noconfirm --needed -S libcmaes \
-  && trizen -Scc --noconfirm
+# install basic python packages
+RUN pacman --noconfirm --needed -Syu \
+  ipython \
+  jupyter-notebook \
+  python-ipywidgets \
+  python-pip
 
 # install jupyter nbextensions
 RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
@@ -50,6 +35,9 @@ RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
   && pip install --upgrade --no-cache-dir jupyter_nbextensions_configurator \
   && jupyter nbextensions_configurator enable --system
 
-# start ssh server
+# install and configure ssh server
+RUN pacman --noconfirm --needed -Syu openssh
 RUN ssh-keygen -A && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+# start ssh server
 ENTRYPOINT ["/usr/bin/sshd", "-D"]
