@@ -44,7 +44,7 @@ restic backup \
   --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
   --exclude={"/var/log/*","/var/lib/docker/*","/var/lib/~docker/*","/var/cache/*"} \
   --exclude={"*~","~*"} \
-  --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
+  --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/Cache*/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
   ${src}
 
