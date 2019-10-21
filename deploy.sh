@@ -9,10 +9,10 @@ aur_install() (
   cd "/tmp/$1"
   source PKGBUILD
   sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
-  sudo -u nobody XDG_CACHE_HOME="/tmp/.cache" makepkg
+  sudo -u nobody XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
   sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.xz
   cd /tmp
-  sudo rm -rf "/tmp/$1"
+  sudo rm -rf "/tmp/.nobody_cache" "/tmp/$1"
 )
 
 if [ "$1" = "--install" ]; then
@@ -22,8 +22,8 @@ if [ "$1" = "--install" ]; then
       pacman -Syu --noconfirm --needed sudo || true
       sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
-      # Trizen
-      if ! hash trizen 2>/dev/null; then aur_install trizen; fi
+      # Yay
+      if ! hash trizen 2>/dev/null; then aur_install yay; fi
       # Direnv
       if ! hash direnv 2>/dev/null; then aur_install direnv; fi
       # dual-booting
