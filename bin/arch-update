@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo pacman -Syu --noconfirm && trizen -Syu --aur --noconfirm
+sudo pacman -Syu --noconfirm && yay -Syu --aur --noconfirm
