@@ -23,7 +23,7 @@ if [ "$1" = "--install" ]; then
       sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Yay
-      if ! hash trizen 2>/dev/null; then aur_install yay; fi
+      if ! hash trizen 2>/dev/null; then aur_install yay-bin; fi
       # Direnv
       if ! hash direnv 2>/dev/null; then aur_install direnv; fi
       # dual-booting
