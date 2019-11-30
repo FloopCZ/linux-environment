@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+if [ $# -lt 2 ]; then
+  echo "Download a certificate from the given HTTPS URL."
+  echo "Usage: $0 HOST:PORT OUTFILE"
+  echo "Example: $0 example.com:443 cert.pem"
+  exit 1
+fi
+
+openssl s_client -showcerts -connect "$1" | openssl x509 -outform PEM > "$2"
