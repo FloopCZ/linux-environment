@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+import argparse
+from typing import *
+import re
+import subprocess
+
+IP_PART_RE = "25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?"
+MASK_RE = "[1-2][0-9]|3[0-2]"
+IP_RE = f"({IP_PART_RE})\.({IP_PART_RE})\.({IP_PART_RE})\.({IP_PART_RE})/({MASK_RE})"
+
+
+def parse_ip(ip: str) -> List[int]:
+    match = re.match(IP_RE, ip)
+    if not match:
+        raise ValueError(f"`{ip}` is not a valid IP address.")
+    return [int(match.group(i)) for i in range(1, 6)]
+
+
+def parse_port(port: str) -> int:
+    port = int(port)
+    if not 0 < port <= 65535:
+        raise ValueError(f"`{port}` is not a valid port.")
+    return port
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Add a client to the given wg-quick config.')
+    parser.add_argument('--name', type=str, required=True,
+                        help='The clients name (only informative purpose).')
+    parser.add_argument('--config', type=str, required=True,
+                        help='The path to the wg-quick config file.')
+    parser.add_argument('--endpoint', type=str, required=True,
+                        help='The URL of the WireGuard server.')
+    args = parser.parse_args()
+
+    server_ip = None
+    largest_ip = None
+    server_port = None
+    server_key = None
+    server_ip_re = "^Address[\s]*=[\s]*(.*)$"
+    client_ip_re = "^AllowedIPs[\s]*=[\s]*(.*)$"
+    server_port_re = "^ListenPort[\s]*=[\s]*(.*)$"
+    server_key_re = "^PrivateKey[\s]*=[\s]*(.*)$"
+
+    # Parse all the required variables from the config
+    with open(args.config, 'r') as cfg_file:
+        for line in cfg_file.readlines():
+
+            server_ip_match = re.match(server_ip_re, line)
+            if server_ip_match:
+                assert server_ip is None
+                server_ip = parse_ip(server_ip_match.group(1))
+                largest_ip = server_ip
+
+            client_ip_match = re.match(client_ip_re, line)
+            if client_ip_match:
+                assert largest_ip is not None
+                largest_ip = max(largest_ip, parse_ip(client_ip_match.group(1)))
+
+            server_port_match = re.match(server_port_re, line)
+            if server_port_match:
+                assert server_port is None
+                server_port = parse_port(server_port_match.group(1))
+
+            server_key_match = re.match(server_key_re, line)
+            if server_key_match:
+                assert server_key is None
+                server_key = server_key_match.group(1).strip()
+
+    # Generate the server's public key.
+    server_pubkey = subprocess.run(["wg", "pubkey"], stdout=subprocess.PIPE, input=server_key.encode("utf-8"))
+    server_pubkey = server_pubkey.stdout.decode("utf-8").strip()
+
+    # Generate the client's IP.
+    assert largest_ip[3] < 255, "Cannot increase IP address anymore"
+    client_ip = largest_ip.copy()
+    client_ip[3] += 1
+    client_ip[4] = 32
+    client_ip = list(map(str, client_ip))
+    # The client's address allowed on the server side. Ends with "/32".
+    server_allow_ip = '.'.join(client_ip[:4]) + '/32'
+    # The clients's address set on the client side. Ends with "/mask"
+    client_ip = '.'.join(client_ip[:4]) + '/' + str(server_ip[4])
+
+    # Generate the client keys.
+    client_key = subprocess.run(["wg", "genkey"], stdout=subprocess.PIPE)
+    client_key = client_key.stdout.decode("utf-8").strip()
+    client_pubkey = subprocess.run(["wg", "pubkey"], stdout=subprocess.PIPE, input=client_key.encode("utf-8"))
+    client_pubkey = client_pubkey.stdout.decode("utf-8").strip()
+
+    # Add the client to the server's config.
+    with open(args.config, 'a') as cfg_file:
+        cfg_file.write(f"\n")
+        cfg_file.write(f"[Peer]  # {args.name}\n")
+        cfg_file.write(f"PublicKey = {client_pubkey}\n")
+        cfg_file.write(f"AllowedIPs = {server_allow_ip}\n")
+
+    # Print the client config.
+    print(f"[Interface]")
+    print(f"Address = {client_ip}")
+    print(f"PrivateKey = {client_key}")
+    print(f"")
+    print(f"[Peer]")
+    print(f"PublicKey = {server_pubkey}")
+    print(f"AllowedIPs = {client_ip}")
+    print(f"Endpoint = {args.endpoint}:{server_port}")
+    print(f"PersistentKeepalive = 25")
+
