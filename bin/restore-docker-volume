@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-# A script to backup a docker volume.
+# A script to restore a backed-up a docker volume.
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 DOCKER_VOLUME [OUTPUT_FILE]"
+  echo "Usage: $0 DOCKER_VOLUME [BACKUP_FILE]"
   echo "Example: $0 jenkins_home volume.tar.bz2"
   exit 1
 fi
 
-dst_file=${2:-"./${1}.tar.bz2"}
+src_file=${2:-"./${1}.tar.bz2"}
 tmp_file="$(basename $(mktemp /tmp/volume-${1}.XXXXXXX.tar.bz2))"
 
 function cleanup {
@@ -16,6 +16,6 @@ function cleanup {
 }
 trap cleanup INT TERM EXIT
 
+cp --reflink=auto -v "${src_file}" "${tmp_file}"
 docker run -it -v "$1":/volume -v /tmp:/tmp alpine \
-  tar -cvjf "${tmp_file}" -C /volume ./
-mv -v "${tmp_file}" "${dst_file}"
+  tar -xvjf "${tmp_file}" -C /volume
