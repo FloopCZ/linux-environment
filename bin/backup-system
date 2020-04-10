@@ -8,10 +8,11 @@ tar --exclude="${dst}" \
     --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
     --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
     --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
-    --exclude={"/var/log/*","/var/cache/*"} \
-    --exclude={"*~","~*"} \
-    --exclude={"/home/*/.cache/*","/home/*/.local/*"} \
-    --exclude={"*/.Trash/*","*/.Trash-*/*"} \
+    --exclude={"/var/log/*","/var/lib/docker/*","/var/cache/*"} \
+    --exclude="*~*" \
+    --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/Cache*/*"} \
+    --exclude={"*/.Trash/*","*/.Trash-*"} \
+    --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
     --xattrs --acls \
     -cvpf "${dst}" \
     /*
