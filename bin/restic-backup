@@ -9,6 +9,9 @@
 # RESTIC_REPOSITORY="b2:<BUCKET_NAME>"
 # RESTIC_PASSWORD="<RESTIC_PASSWORD>"
 #
+# Skip the RESTIC_PASSWORD variable in order to be
+# asked for password interactively.
+#
 # A secure way to do that is to copy the previous lines
 # to e.g., /etc/restic/b2.env and restrict its permissions.
 # This file can be used in systemd units via `EnvironmentFile`
@@ -28,6 +31,14 @@ keep_weekly="${3:-1}"
 keep_monthly="${4:-1}"
 keep_yearly="${5:-1}"
 
+### Read password. ###
+if [ -z "${RESTIC_PASSWORD}" ]; then
+    echo -n "RESTIC_PASSWORD: "
+    read -s RESTIC_PASSWORD
+    echo
+fi
+export RESTIC_PASSWORD="${RESTIC_PASSWORD}"
+
 ### Unlock the repository. ###
 
 echo "List all locks:"
@@ -46,6 +57,7 @@ restic backup \
   --exclude={"*~","~*"} \
   --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/Cache*/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
+  --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
   ${src}
 
 ### Remove old backups. ###

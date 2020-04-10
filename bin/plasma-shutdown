@@ -1,0 +1,3 @@
+#!/bin/bash
+# Shutdown the computer through the Plasma API (no root).
+qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 0 2 2
