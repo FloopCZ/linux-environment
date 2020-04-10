@@ -1,0 +1,13 @@
+[Unit]
+Description=WireGuard interface watchdog (%I)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'while ping -c 1 $(grep AllowedIPs /etc/wireguard/%i.conf | cut -d= -f2 | cut -d/ -f1) > /dev/null; do sleep 10; done; systemctl restart wg-quick@%i.service; exit 1'
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
