@@ -71,16 +71,20 @@ if __name__ == "__main__":
     server_pubkey = subprocess.run(["wg", "pubkey"], stdout=subprocess.PIPE, input=server_key.encode("utf-8"))
     server_pubkey = server_pubkey.stdout.decode("utf-8").strip()
 
+    # Prepare the server interface IP as a string.
+    server_ip_str_parts = list(map(str, server_ip))
+    server_ip_str = '.'.join(server_ip_str_parts[:4]) + '/' + server_ip_str_parts[4]
+
     # Generate the client's IP.
     assert largest_ip[3] < 255, "Cannot increase IP address anymore"
     client_ip = largest_ip.copy()
     client_ip[3] += 1
     client_ip[4] = 32
-    client_ip = list(map(str, client_ip))
     # The client's address allowed on the server side. Ends with "/32".
-    server_allow_ip = '.'.join(client_ip[:4]) + '/32'
-    # The clients's address set on the client side. Ends with "/mask"
-    client_ip = '.'.join(client_ip[:4]) + '/' + str(server_ip[4])
+    client_ip_str_parts = list(map(str, client_ip))
+    client_allow_ip_str = '.'.join(client_ip_str_parts[:4]) + '/32'
+    # The clients's interface address (set on the client side). Ends with "/mask"
+    client_ip_str = '.'.join(client_ip_str_parts[:4]) + '/' + str(server_ip_str_parts[4])
 
     # Generate the client keys.
     client_key = subprocess.run(["wg", "genkey"], stdout=subprocess.PIPE)
@@ -93,16 +97,16 @@ if __name__ == "__main__":
         cfg_file.write(f"\n")
         cfg_file.write(f"[Peer]  # {args.name}\n")
         cfg_file.write(f"PublicKey = {client_pubkey}\n")
-        cfg_file.write(f"AllowedIPs = {server_allow_ip}\n")
+        cfg_file.write(f"AllowedIPs = {client_allow_ip_str}\n")
 
     # Print the client config.
     print(f"[Interface]")
-    print(f"Address = {client_ip}")
+    print(f"Address = {client_ip_str}")
     print(f"PrivateKey = {client_key}")
     print(f"")
     print(f"[Peer]")
     print(f"PublicKey = {server_pubkey}")
-    print(f"AllowedIPs = {client_ip}")
+    print(f"AllowedIPs = {server_ip_str}")
     print(f"Endpoint = {args.endpoint}:{server_port}")
     print(f"PersistentKeepalive = 25")
 
