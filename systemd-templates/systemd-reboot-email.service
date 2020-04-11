@@ -1,0 +1,11 @@
+[Unit]
+Description=Send information that the system has been rebooted.
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/systemd-reboot-email ADDRESS
+User=nobody
+Group=systemd-journal
+
+[Install]
+WantedBy=multi-user.target

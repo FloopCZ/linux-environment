@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+# Send an informative email that the system has restarted.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 ADDRESS"
+  exit 1
+fi
+
+sendmail -t <<SYSTEMDRESTARTMAIL
+To: ${1}
+From: systemd <root@$(hostname -f)>
+Subject: System restart
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+$(hostname --fqdn) has been restarted on $(date)".
+SYSTEMDRESTARTMAIL

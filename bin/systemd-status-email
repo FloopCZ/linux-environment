@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Send status email for a systemd unit.
 
@@ -7,7 +7,7 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
-/usr/bin/sendmail -t <<SYSTEMDSTATUSMAIL
+sendmail -t <<SYSTEMDSTATUSMAIL
 To: ${1}
 From: systemd <root@$(hostname -f)>
 Subject: Status of ${2}
