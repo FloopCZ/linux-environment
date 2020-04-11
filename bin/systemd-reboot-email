@@ -14,5 +14,5 @@ Subject: System restart
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=UTF-8
 
-$(hostname --fqdn) has been restarted on $(date)".
+$(hostname --fqdn) has been restarted on $(date).
 SYSTEMDRESTARTMAIL
