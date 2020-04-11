@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+# Send informative email that a user has logged in.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 ADDRESS"
+  exit 1
+fi
+
+
+sendmail -t <<SYSTEMDRESTARTMAIL
+To: ${1}
+From: $(whoami) <$(whoami)@$(hostname -f)>
+Subject: Login of user $(whoami)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+User $(whoami) has logged in on $(hostname -f) on $(date).
+SYSTEMDRESTARTMAIL
