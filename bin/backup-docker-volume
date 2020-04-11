@@ -12,10 +12,10 @@ dst_file=${2:-"./${1}.tar.bz2"}
 tmp_file="$(basename $(mktemp /tmp/volume-${1}.XXXXXXX.tar.bz2))"
 
 function cleanup {
-  rm -f "${tmp_file}"
+  rm -f "/tmp/${tmp_file}"
 }
 trap cleanup INT TERM EXIT
 
-docker run -it -v "$1":/volume -v /tmp:/tmp alpine \
-  tar -cvjf "${tmp_file}" -C /volume ./
-mv -v "${tmp_file}" "${dst_file}"
+docker run -it -v "$1":/volume -v /tmp:/tmp-host alpine \
+  tar -cvjf "/tmp-host/${tmp_file}" -C /volume ./
+mv -v "/tmp/${tmp_file}" "${dst_file}"
