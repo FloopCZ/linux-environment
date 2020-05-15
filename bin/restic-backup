@@ -58,6 +58,7 @@ restic backup \
   --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/Cache*/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
   --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
+  --exclude="/var/lib/dhcpcd/*" \
   ${src}
 
 ### Remove old backups. ###
