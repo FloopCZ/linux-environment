@@ -13,6 +13,8 @@ jobs:
   test_ubuntu_rolling:
     docker:
       - image: ubuntu:rolling
+    environment:
+      DEBIAN_FRONTEND: noninteractive
     working_directory: ~/linux-environment
     steps:
       - checkout
