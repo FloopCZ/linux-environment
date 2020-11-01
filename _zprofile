@@ -14,10 +14,10 @@ export LD_LIBRARY_PATH="${HOME}/.local/lib:$LD_LIBRARY_PATH"
 export CPLUS_INCLUDE_PATH="${HOME}/.local/include:$CPLUS_INCLUDE_PATH"
 
 # Intel MKL
-# export INTEL_MKL_ROOT_DIR="/opt/intel/mkl"
-# export CPLUS_INCLUDE_PATH="${INTEL_MKL_ROOT_DIR}/include:$CPLUS_INCLUDE_PATH"
-# export LIBRARY_PATH="${INTEL_MKL_ROOT_DIR}/lib/intel64:$LIBRARY_PATH"
-# export LD_LIBRARY_PATH="${INTEL_MKL_ROOT_DIR}/lib/intel64:$LD_LIBRARY_PATH"
+export INTEL_MKL_ROOT_DIR="/opt/intel/mkl"
+export CPLUS_INCLUDE_PATH="${INTEL_MKL_ROOT_DIR}/include:$CPLUS_INCLUDE_PATH"
+export LIBRARY_PATH="${INTEL_MKL_ROOT_DIR}/lib/intel64:$LIBRARY_PATH"
+export LD_LIBRARY_PATH="${INTEL_MKL_ROOT_DIR}/lib/intel64:$LD_LIBRARY_PATH"
 
 # Intel OpenCl
 # export INTEL_OPENCL_ROOT_DIR="/opt/intel/opencl"
