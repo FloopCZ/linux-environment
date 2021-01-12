@@ -51,11 +51,15 @@ restic unlock
 restic backup \
   --exclude={"/dev/*","/proc/*","/sys/*","/swapfile","/tmp/*"} \
   --exclude={"/run/*","/mnt/*","/media/*","/lost+found"} \
+  --exclude={"/boot/*.img","/boot/vmlinuz*","/boot/*.bmp"} \
   --exclude={"/bin/*","/lib*/*","/opt/*","/sbin/*"} \
   --exclude={"/usr/bin/*","/usr/lib*/*","/usr/share/*","/usr/include/*","/usr/src/*"} \
   --exclude={"/var/tmp/*","/var/log/*","/var/lib/docker/*","/var/cache/*"} \
+  --exclude={"/var/lib/dkms/*","/var/lib/pacman/*","/var/lib/upower/*"} \
   --exclude="*~*" \
-  --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/Cache*/*"} \
+  --iexclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/*cache*/*"} \
+  --iexclude={"/home/*/.config/*/User/*storage*/*","/home/*/.config/*/*logs*/*"} \
+  --exclude={"/home/*/.vscode/*","/home/*/.config/google-chrome/*","/home/*/.config/Slack/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
   --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
   --exclude="/var/lib/dhcpcd/*" \
