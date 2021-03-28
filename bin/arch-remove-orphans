@@ -1,0 +1,2 @@
+#!/bin/bash -e
+pacman -Qtdq | pacman -Rns -
