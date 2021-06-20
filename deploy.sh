@@ -10,7 +10,7 @@ aur_install() (
   source PKGBUILD
   sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
   sudo -u nobody XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
-  sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.xz
+  sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.*
   cd /tmp
   sudo rm -rf "/tmp/.nobody_cache" "/tmp/$1"
 )
