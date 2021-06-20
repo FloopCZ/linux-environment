@@ -10,10 +10,9 @@ fi
 
 sendmail -t <<SYSTEMDRESTARTMAIL
 To: ${1}
-From: $(whoami) <$(whoami)@$(hostname -f)>
 Subject: Login of user $(whoami)
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=UTF-8
 
-User $(whoami) has logged in on $(hostname -f) on $(date).
+User $(whoami) has logged in on $(cat /etc/hostname) on $(date).
 SYSTEMDRESTARTMAIL
