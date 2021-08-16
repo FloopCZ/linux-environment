@@ -28,9 +28,7 @@ DISABLE_AUTO_UPDATE=true
 
 # Load plugins and oh-my-zsh.
 plugins=(
-  archlinux
   git
-  pyenv
   sudo
   tmux
   vi-mode
@@ -40,6 +38,12 @@ source "${ZSH}/oh-my-zsh.sh"
 
 # Enable direnv
 eval "$(direnv hook zsh)"
+
+# Enable pyenv
+if hash pyenv 2>/dev/null; then
+    eval "$(pyenv init - zsh)"
+    eval "$(pyenv virtualenv-init - zsh)"
+fi
 
 # Accept autosuggestions using Ctrl+Space
 bindkey "^ " autosuggest-execute
@@ -102,3 +106,4 @@ key[CtrlRight]="^[[1;5C"
 if [ -f "${HOME}/.zshrc-local" ]; then
     source "${HOME}/.zshrc-local"
 fi
+

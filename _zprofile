@@ -25,18 +25,17 @@ export LD_LIBRARY_PATH="${INTEL_MKL_ROOT_DIR}/lib/intel64:$LD_LIBRARY_PATH"
 # export LIBRARY_PATH="${INTEL_OPENCL_ROOT_DIR}/lib64:$LIBRARY_PATH"
 # export LD_LIBRARY_PATH="${INTEL_OPENCL_ROOT_DIR}/lib64:$LD_LIBRARY_PATH"
 
-# Anaconda3
-# export ANACONDA_ROOT_DIR="${HOME}/.anaconda3"
-# export PATH="${ANACONDA_ROOT_DIR}/bin:$PATH"
-# export CPLUS_INCLUDE_PATH="${ANACONDA_ROOT_DIR}/include/python3.5m:$CPLUS_INCLUDE_PATH"
-# export LIBRARY_PATH="${ANACONDA_ROOT_DIR}/lib:$LIBRARY_PATH"
-# export LD_LIBRARY_PATH="${ANACONDA_ROOT_DIR}/lib:$LD_LIBRARY_PATH"
-# export CPLUS_INCLUDE_PATH="${ANACONDA_ROOT_DIR}/include:$CPLUS_INCLUDE_PATH"
-
 # Cuda
 # export CUDA_ROOT_DIR="/usr/local/cuda"
 # export PATH="${CUDA_ROOT_DIR}/bin:${CUDA_ROOT_DIR}/nvvm/bin:$PATH"
 # export LD_LIBRARY_PATH="${CUDA_ROOT_DIR}/lib64:$LD_LIBRARY_PATH"
+
+# Pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="${PYENV_ROOT}/bin:$PATH"
+if hash pyenv 2>/dev/null; then
+    eval "$(pyenv init --path zsh)"
+fi
 
 # Load local zprofile.
 if [ -f .zprofile-local ]; then
