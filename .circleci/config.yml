@@ -8,7 +8,36 @@ references:
       command: |
         ./deploy.sh --install
 
+  docker_login: &docker_login
+    run:
+      name: Login to Docker.
+      command: |
+        sudo docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+
+  build_docker_images: &build_docker_images
+    run:
+      name: Build all docker images.
+      command: |
+        TODAY="$(date '+%Y-%m-%d')"
+        sudo docker build -f jenkins-with-docker -t "floopcz/jenkins-with-docker:${TODAY}" -t "floopcz/jenkins-with-docker:latest" .
+        sudo docker push floopcz/jenkins-with-docker:latest
+        sudo docker push floopcz/jenkins-with-docker:"${TODAY}"
+        sudo docker build -f archlinux -t "floopcz/archlinux:${TODAY}" -t "floopcz/archlinux:latest" .
+        sudo docker push floopcz/archlinux:latest
+        sudo docker push floopcz/archlinux:"${TODAY}"
+        sudo docker build -f archlinux --build-arg tag="cuda" -t "floopcz/archlinux:cuda_${TODAY}" -t "floopcz/archlinux:cuda" .
+        sudo docker push floopcz/archlinux:cuda
+        sudo docker push floopcz/archlinux:"cuda_${TODAY}"
+
 jobs:
+
+  build_dockerfiles:
+    machine: true
+    working_directory: ~/dockerfiles
+    steps:
+      - checkout
+      - *docker_login
+      - *build_docker_images
 
   test_ubuntu_rolling:
     docker:
@@ -44,3 +73,14 @@ workflows:
       - test_ubuntu_rolling
       - test_archlinux
       - test_fedora
+      - build_dockerfiles
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "18 7 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    <<: *test_matrix
