@@ -43,10 +43,10 @@ if [ "$1" = "--install" ]; then
       export DEBIAN_FRONTEND=noninteractive
       apt-get -y update || true
       apt-get -y install sudo || true
-      sudo apt-get -y update
-      sudo apt-get -y upgrade
-      sudo apt-get -y install build-essential libpam-systemd direnv
-      pacman_bin="apt-get -y install"
+      sudo -E apt-get -y update
+      sudo -E apt-get -y upgrade
+      sudo -E apt-get -y install build-essential libpam-systemd direnv
+      pacman_bin="DEBIAN_FRONTEND=noninteractive apt-get -y install"
       pynvim_pkg="python3-neovim"
   else
       pacman_bin=/bin/false
