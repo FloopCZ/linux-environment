@@ -33,7 +33,7 @@ jobs:
 
   build_dockerfiles:
     machine: true
-    working_directory: ~/dockerfiles
+    working_directory: ~/linux-environment/dockerfiles
     steps:
       - checkout
       - *docker_login
@@ -51,7 +51,7 @@ jobs:
 
   test_archlinux:
     docker:
-      - image: archlinux/base
+      - image: archlinux
     working_directory: ~/linux-environment
     steps:
       - checkout
