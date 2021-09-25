@@ -9,7 +9,7 @@ aur_install() (
   cd "/tmp/$1"
   source PKGBUILD
   sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
-  sudo -u nobody XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
+  sudo -u nobody GOPATH="/tmp/.nobody_cache/.go" XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
   sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.*
   cd /tmp
   sudo rm -rf "/tmp/.nobody_cache" "/tmp/$1"
@@ -40,6 +40,7 @@ if [ "$1" = "--install" ]; then
       pynvim_pkg="python3-neovim"
   elif hash apt-get 2>/dev/null; then
       # Debian/Ubuntu
+      export DEBIAN_FRONTEND=noninteractive
       apt-get -y update || true
       apt-get -y install sudo || true
       sudo apt-get -y update
