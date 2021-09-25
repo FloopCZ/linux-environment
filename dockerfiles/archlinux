@@ -10,9 +10,8 @@ RUN useradd -m -s /usr/bin/zsh somebody \
   && echo "root:crudePlayfulSpoon" | chpasswd
 
 # install linux environment for root
-RUN cd /root \
-  && git clone https://github.com/FloopCZ/linux-environment.git \
-  && cd linux-environment \
+COPY . /root/linux-environment
+RUN cd /root/linux-environment \
   && ./deploy.sh --install
 
 # install linux environment for unprivileged user

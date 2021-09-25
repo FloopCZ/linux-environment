@@ -19,13 +19,13 @@ references:
       name: Build all docker images.
       command: |
         TODAY="$(date '+%Y-%m-%d')"
-        sudo docker build -f jenkins-with-docker -t "floopcz/jenkins-with-docker:${TODAY}" -t "floopcz/jenkins-with-docker:latest" .
+        sudo docker build -f ./dockerfiles/jenkins-with-docker -t "floopcz/jenkins-with-docker:${TODAY}" -t "floopcz/jenkins-with-docker:latest" .
         sudo docker push floopcz/jenkins-with-docker:latest
         sudo docker push floopcz/jenkins-with-docker:"${TODAY}"
-        sudo docker build -f archlinux -t "floopcz/archlinux:${TODAY}" -t "floopcz/archlinux:latest" .
+        sudo docker build -f ./dockerfiles/archlinux -t "floopcz/archlinux:${TODAY}" -t "floopcz/archlinux:latest" .
         sudo docker push floopcz/archlinux:latest
         sudo docker push floopcz/archlinux:"${TODAY}"
-        sudo docker build -f archlinux --build-arg tag="cuda" -t "floopcz/archlinux:cuda_${TODAY}" -t "floopcz/archlinux:cuda" .
+        sudo docker build -f ./dockerfiles/archlinux --build-arg tag="cuda" -t "floopcz/archlinux:cuda_${TODAY}" -t "floopcz/archlinux:cuda" .
         sudo docker push floopcz/archlinux:cuda
         sudo docker push floopcz/archlinux:"cuda_${TODAY}"
 
@@ -33,7 +33,7 @@ jobs:
 
   build_dockerfiles:
     machine: true
-    working_directory: ~/linux-environment/dockerfiles
+    working_directory: ~/linux-environment
     steps:
       - checkout
       - *docker_login
