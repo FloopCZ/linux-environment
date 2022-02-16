@@ -32,7 +32,8 @@ references:
 jobs:
 
   build_dockerfiles:
-    machine: true
+    machine:
+      image: ubuntu-2004:202201-02
     working_directory: ~/linux-environment
     steps:
       - checkout
