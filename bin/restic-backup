@@ -59,7 +59,7 @@ restic backup \
   --exclude="*~*" \
   --iexclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/*cache*/*"} \
   --iexclude={"/home/*/.config/*/User/*storage*/*","/home/*/.config/*/*logs*/*"} \
-  --exclude={"/home/*/.vscode/*","/home/*/.config/google-chrome/*","/home/*/.config/Slack/*"} \
+  --exclude={"/home/*/.vscode/*","/home/*/.config/google-chrome/*","/home/*/.googleearth/*","/home/*/.config/Slack/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
   --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
   --exclude="/var/lib/dhcpcd/*" \
