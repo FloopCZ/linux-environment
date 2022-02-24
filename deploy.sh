@@ -5,6 +5,7 @@ set -e
 # This function works even for root (as opposed to plain makepkg -si).
 # Usage: aur_install PACKAGE_NAME
 aur_install() (
+  cd "/tmp/"
   sudo -u nobody git clone "https://aur.archlinux.org/$1.git" "/tmp/$1"
   cd "/tmp/$1"
   source PKGBUILD

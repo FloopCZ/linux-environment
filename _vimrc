@@ -170,6 +170,7 @@ set scrolloff=3   " Keep few lines above/below.
 set nowrap        " Do not wrap lines longer than the width of the screen.
 set tabpagemax=90 " Raise a limit of opened tabs.
 set breakindent   " Keep indentation when wrapping lines.
+"set iskeyword-=_  " Underscore separates words.
 
 " Set inccommand for NeoVim to see substitution changes interactively
 if exists('&inccommand')
