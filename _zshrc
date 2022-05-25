@@ -20,7 +20,7 @@ SAVEHIST=20000
 setopt share_history
 
 # Autostart tmux.
-ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=false
 ZSH_TMUX_AUTOQUIT=false
 
 # Disable oh-my-zsh autoupdate.
