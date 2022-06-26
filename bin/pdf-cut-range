@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+if [ $# -lt 3 ]; then
+  echo "Usage: $0 source-pdf page-range out-pdf
+  exit 1
+fi
+
+source_pdf="${1}"
+page_range="${2}"
+out_pdf="${3}"
+
+pdftk "${source_pdf}" cat "${page_range}" output "${out_pdf}"
