@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# Clang-format all files in the given folder.
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 dir"
+  exit 1
+fi
+
+find "$1" -iname "*pp" -exec clang-format --style=file -i {} \;
