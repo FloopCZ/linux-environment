@@ -4,32 +4,36 @@ Language: Cpp
 BasedOnStyle: LLVM
 
 AccessModifierOffset: -4
-AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: None
-AllowShortIfStatementsOnASingleLine: true
-AllowShortLoopsOnASingleLine: true
-AlwaysBreakTemplateDeclarations: true
-BinPackParameters: false
-BinPackArguments: false
 AlignAfterOpenBracket: AlwaysBreak
-BraceWrapping:
-  BeforeElse: false
-BreakBeforeBraces: Stroustrup
-BreakConstructorInitializersBeforeComma: true
-BreakStringLiterals: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: Yes
+AlwaysBreakBeforeMultilineStrings: true
+BinPackArguments: true
+BinPackParameters: false
+AlignOperands: DontAlign
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: WebKit
+BreakConstructorInitializers: BeforeComma
 ColumnLimit: 100
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
-Cpp11BracedListStyle: true
-IndentCaseLabels: false
+IncludeBlocks: Regroup
 IndentWidth: 4
-NamespaceIndentation: None
-PenaltyReturnTypeOnItsOwnLine: 80
+KeepEmptyLinesAtTheStartOfBlocks: false
+# clang-format 14:
+# PackConstructorInitializers: NextLine
+# clang-format 13 version of the previous:
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
 PointerAlignment: Left
-# SpaceAfterTemplateKeyword: false
+# clang-format 14:
+# SeparateDefinitionBlocks: Always
+# clang-format 14:
+# RemoveBracesLLVM: true
 SpacesBeforeTrailingComments: 2
-Standard: Cpp11
+Standard: Latest
 TabWidth: 4
 ...
