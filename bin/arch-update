@@ -1,4 +1,5 @@
 #!/bin/bash -e
+sudo pacman -Sy --noconfirm --needed archlinux-keyring
 yay -Syu \
     --combinedupgrade \
     --noremovemake \
