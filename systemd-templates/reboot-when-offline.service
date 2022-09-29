@@ -1,0 +1,14 @@
+[Unit]
+Description=Reboot machine when offline for some time
+
+StartLimitIntervalSec=900
+StartLimitBurst=30
+StartLimitAction=reboot
+
+[Service]
+ExecStart=/bin/bash -c "while ping -c 1 google.com > /dev/null; do sleep 10; done; exit 1"
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
