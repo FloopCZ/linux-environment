@@ -59,7 +59,7 @@ fi
 
 # get submodules
 git submodule init
-git submodule update --recursive --remote
+git submodule update --recursive
 
 # copy neovim config
 mkdir -vp ~/.config/nvim

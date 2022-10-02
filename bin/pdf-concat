@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+if [ $# -lt 3 ]; then
+  echo "Usage: $0 out-pdf source-pdfs..."
+  exit 1
+fi
+
+out_pdf="${1}"
+shift
+
+pdftk "$@" cat output "$out_pdf"
