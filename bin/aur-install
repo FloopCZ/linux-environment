@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+if [ $# -lt 1 ]; then
+  echo "Install a package from Arch User Repository"
+  echo "This function works even for root (as opposed to plain makepkg -si)."
+  echo "Usage: $0 PACKAGE_NAME [PACMAN_PARAMS]"
+  exit 1
+fi
+
+pkg="${1}"
+shift
+
+cd "/tmp/"
+sudo -u nobody git clone "https://aur.archlinux.org/${pkg}.git" "/tmp/${pkg}"
+cd "/tmp/${pkg}"
+source PKGBUILD
+sudo pacman -S "$@" --asdeps "${makedepends[@]}" "${depends[@]}"
+sudo -u nobody GOPATH="/tmp/.nobody_cache/.go" XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
+sudo pacman -U "$@" "${pkg}"-*.pkg.tar.*
+cd /tmp
+sudo rm -rf "/tmp/.nobody_cache" "/tmp/${pkg}"
+
