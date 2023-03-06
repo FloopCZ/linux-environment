@@ -38,5 +38,6 @@ RUN pip install --upgrade --no-cache-dir jupyter_contrib_nbextensions \
 RUN pacman --noconfirm --needed -Syu openssh
 RUN ssh-keygen -A && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
-# start ssh server
-ENTRYPOINT ["/usr/bin/sshd", "-D"]
+# start ssh server by default
+# ENTRYPOINT ["/usr/bin/sshd", "-D"]
+
