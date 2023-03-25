@@ -109,8 +109,9 @@ ln -srfv _tmux.conf ~/.tmux.conf
 # copy clang-format
 ln -srfv _clang-format ~/.clang-format
 
-# copy pam environment
-ln -srfv _pam_environment ~/.pam_environment
+# copy environment
+mkdir -vp ~/.config/environment.d/
+ln -srfv ssh-agent-env.conf ~/.config/environment.d/ssh-agent.conf
 
 # copy binaries
 mkdir -vp ~/bin
