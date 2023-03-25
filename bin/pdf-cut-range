@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 if [ $# -lt 3 ]; then
-  echo "Usage: $0 source-pdf page-range out-pdf
+  echo "Usage: $0 source-pdf page-range out-pdf"
   exit 1
 fi
 
