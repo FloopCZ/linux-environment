@@ -1,21 +1,6 @@
 #!/bin/bash
 set -e
 
-# Install a package from Arch User Repository
-# This function works even for root (as opposed to plain makepkg -si).
-# Usage: aur_install PACKAGE_NAME
-aur_install() (
-  cd "/tmp/"
-  sudo -u nobody git clone "https://aur.archlinux.org/$1.git" "/tmp/$1"
-  cd "/tmp/$1"
-  source PKGBUILD
-  sudo pacman -S --noconfirm --needed --asdeps "${makedepends[@]}" "${depends[@]}"
-  sudo -u nobody GOPATH="/tmp/.nobody_cache/.go" XDG_CACHE_HOME="/tmp/.nobody_cache" makepkg
-  sudo pacman -U --noconfirm --needed "$1"-*.pkg.tar.*
-  cd /tmp
-  sudo rm -rf "/tmp/.nobody_cache" "/tmp/$1"
-)
-
 if [ "$1" = "--install" ]; then
   # identify package manager, upgrade and install OS specific packages
   if hash pacman 2>/dev/null; then
@@ -24,9 +9,9 @@ if [ "$1" = "--install" ]; then
       sudo pacman -Syu --noconfirm
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Yay
-      if ! hash yay 2>/dev/null; then aur_install yay-bin; fi
+      if ! hash yay 2>/dev/null; then ./bin/aur-install yay-bin --noconfirm --needed; fi
       # Direnv
-      if ! hash direnv 2>/dev/null; then aur_install direnv; fi
+      if ! hash direnv 2>/dev/null; then ./bin/aur-install direnv --noconfirm --needed; fi
       # dual-booting
       #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
