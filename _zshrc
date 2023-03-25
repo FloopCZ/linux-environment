@@ -37,7 +37,9 @@ plugins=(
 source "${ZSH}/oh-my-zsh.sh"
 
 # Enable direnv
-eval "$(direnv hook zsh)"
+if hash direnv 2>/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
 
 # Enable pyenv
 if hash pyenv 2>/dev/null; then
