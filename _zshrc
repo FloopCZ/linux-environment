@@ -53,11 +53,17 @@ bindkey "^ " autosuggest-execute
 # Enable aliases to pass through sudo.
 alias sudo='sudo '
 
-# Use neovim with panels by default.
-alias vim='nvim -p'
+# Use neovim or vim with panels by default.
+if hash nvim 2>/dev/null; then
+    alias vim='nvim -p'
+else
+    alias vim='vim -p'
+fi
 
 # Move to trash instead of hard rm.
-alias rm='trash'
+if hash trash 2>/dev/null; then
+    alias rm='trash'
+fi
 
 # Fast jump to git root.
 alias cgr='cd "$(git rev-parse --show-toplevel)"'
