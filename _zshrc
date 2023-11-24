@@ -43,8 +43,8 @@ fi
 
 # Enable pyenv
 if hash pyenv 2>/dev/null; then
-    eval "$(pyenv init - zsh)"
-    eval "$(pyenv virtualenv-init - zsh)"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 # Accept autosuggestions using Ctrl+Space

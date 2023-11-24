@@ -10,32 +10,33 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'morhetz/gruvbox'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdtree'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'wellle/tmux-complete.vim'
+" Plug 'wellle/tmux-complete.vim'
 call plug#end()
 
 " Set-up EasyMotion.
-" Disable default mappings.
-let g:EasyMotion_do_mapping = 0
+" Be case insensitive.
+let g:EasyMotion_smartcase = 1
+" Jump with `<leader>s{char}`
+" map <Leader> <Plug>(easymotion-prefix)
 " Jump with `s{char}{label}`.
 vmap s <Plug>(easymotion-bd-f)
 nmap s <Plug>(easymotion-overwin-f)
 " Jump with `s{char}{char}{label}`.
 " vmap s <Plug>(easymotion-bd-f2)
 " nmap s <Plug>(easymotion-overwin-f2)
-" Be case insensitive.
-let g:EasyMotion_smartcase = 1
 " Enable line motions.
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+" map <Leader>j <Plug>(easymotion-j)
+" map <Leader>k <Plug>(easymotion-k)
 
 " Set-up YouCompleteMe.
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
