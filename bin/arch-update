@@ -3,6 +3,6 @@ sudo pacman -Sy --noconfirm --needed archlinux-keyring
 yay -Syu \
     --combinedupgrade \
     --noremovemake \
-    --nodiffmenu \
+    --diffmenu=false \
     --answerclean=All \
     --sudoloop
