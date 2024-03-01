@@ -12,8 +12,6 @@ if [ "$1" = "--install" ]; then
       if ! hash yay 2>/dev/null; then ./bin/aur-install yay-bin --noconfirm --needed; fi
       # Direnv
       if ! hash direnv 2>/dev/null; then ./bin/aur-install direnv --noconfirm --needed; fi
-      # dual-booting
-      #sudo pacman -S os-prober
       pacman_bin="pacman -S --noconfirm --needed"
       pynvim_pkg="python-pynvim"
   elif hash dnf 2>/dev/null; then
@@ -61,9 +59,6 @@ ln -srfv _vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# copy YouCompleteMe extra configuration
-ln -srfv _ycm_extra_conf.py ~/.ycm_extra_conf.py
-
 # copy ideavim config
 ln -srfv _vimrc ~/.ideavimrc
 
@@ -87,6 +82,7 @@ fi
 # copy zsh config
 ln -srfv _zshrc ~/.zshrc
 ln -srfv _zprofile ~/.zprofile
+ln -srfv _zshenv ~/.zshenv
 
 # copy tmux config
 ln -srfv _tmux.conf ~/.tmux.conf

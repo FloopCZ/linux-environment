@@ -17,7 +17,6 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'wellle/tmux-complete.vim'
@@ -37,20 +36,6 @@ nmap s <Plug>(easymotion-overwin-f)
 " Enable line motions.
 " map <Leader>j <Plug>(easymotion-j)
 " map <Leader>k <Plug>(easymotion-k)
-
-" Set-up YouCompleteMe.
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
-" Do not use code diagnostics.
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
-" Close the documentation window after insertion.
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" Set up tmux-complete.
-" Integrate with YouCompleteMe.
-let g:tmuxcomplete#trigger = 'omnifunc'
 
 " Set-up airline.
 " Do not check indentation.
