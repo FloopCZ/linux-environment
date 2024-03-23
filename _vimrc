@@ -7,10 +7,9 @@ filetype plugin indent on
 " Load vim-plug plugins.
 " Don't forget to call `:PlugInstall`.
 call plug#begin('~/.config/nvim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'morhetz/gruvbox'
-" Plug 'scrooloose/nerdcommenter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'godlygeek/tabular'
 " Plug 'tpope/vim-fugitive'
@@ -19,8 +18,33 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'wellle/tmux-complete.vim'
+Plug 'wellle/tmux-complete.vim'
+Plug 'junegunn/fzf.vim'
 call plug#end()
+
+" Set-up CoC
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Set up fzf as CtrlP
+nmap <C-P> :FZF<CR>
 
 " Set-up EasyMotion.
 " Be case insensitive.

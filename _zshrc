@@ -36,6 +36,11 @@ plugins=(
 )
 source "${ZSH}/oh-my-zsh.sh"
 
+if hash fzf 2>/dev/null; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+fi
+
 # Enable direnv
 if hash direnv 2>/dev/null; then
     eval "$(direnv hook zsh)"
