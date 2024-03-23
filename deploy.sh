@@ -70,6 +70,8 @@ ln -srfv _terminator_config ~/.config/terminator/config
 ln -srfTv oh-my-zsh ~/.oh-my-zsh
 # install oh-my-zsh custom folder
 ln -srfTv oh-my-zsh-custom ~/.oh-my-zsh-custom
+# install powerlevel10k for zsh
+ln -srfv _p10k.zsh ~/.p10k.zsh
 
 # set zsh as the default shell
 current_shell=$(expr "${SHELL:=/bin/false}" : '.*/\(.*\)')
