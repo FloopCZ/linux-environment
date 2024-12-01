@@ -62,6 +62,7 @@ restic backup \
   --exclude={"/home/*/.vscode/*","/home/*/.config/google-chrome/*","/home/*/.googleearth/*","/home/*/.config/Slack/*"} \
   --exclude={"*/.Trash/*","*/.Trash-*"} \
   --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
+  --exclude={"*/steam/library/steamapps/*"} \
   --exclude="/var/lib/dhcpcd/*" \
   ${src}
 
