@@ -9,6 +9,9 @@ RUN useradd -m -s /usr/bin/zsh somebody \
   && echo "somebody:bluntMoreWater" | chpasswd \
   && echo "root:crudePlayfulSpoon" | chpasswd
 
+# make sure the /.dockerenv exists to detect we are in docker
+RUN touch /.dockerenv
+
 # install linux environment for root
 COPY . /root/linux-environment
 RUN cd /root/linux-environment \
