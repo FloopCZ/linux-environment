@@ -35,10 +35,12 @@ plugins=(
   sudo
   tmux
   vi-mode
+  systemd
   zsh-autosuggestions
 )
 source "${ZSH}/oh-my-zsh.sh"
 
+# Enable fzf
 if hash fzf 2>/dev/null; then
     source /usr/share/fzf/key-bindings.zsh
     source /usr/share/fzf/completion.zsh
@@ -51,8 +53,13 @@ fi
 
 # Enable pyenv
 if hash pyenv 2>/dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    eval "$(pyenv init - zsh)"
+    eval "$(pyenv virtualenv-init - zsh)"
+fi
+
+# Enable zoxide
+if hash zoxide 2>/dev/null; then
+    eval "$(zoxide init zsh)"
 fi
 
 # Accept autosuggestions using Ctrl+Space
@@ -69,9 +76,9 @@ else
 fi
 
 # Move to trash instead of hard rm.
-if hash trash 2>/dev/null; then
-    alias rm='trash'
-fi
+# if hash trash 2>/dev/null; then
+#     alias rm='trash'
+# fi
 
 # Fast jump to git root.
 alias cgr='cd "$(git rev-parse --show-toplevel)"'
