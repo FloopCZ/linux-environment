@@ -33,7 +33,7 @@ jobs:
 
   build_dockerfiles:
     machine:
-      image: ubuntu-2404
+      image: ubuntu-2404:current
     working_directory: ~/linux-environment
     steps:
       - checkout
