@@ -6,7 +6,7 @@ references:
     run:
       name: Deploy the environment.
       command: |
-        DEBIAN_FRONTEND=noninteractive ./deploy.sh --install
+        ./deploy.sh --install
 
   docker_login: &docker_login
     run:
@@ -43,8 +43,12 @@ jobs:
   test_ubuntu_rolling:
     docker:
       - image: ubuntu:rolling
+    environment:
+      DEBIAN_FRONTEND: noninteractive
     working_directory: ~/linux-environment
     steps:
+      - ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+      - dpkg-reconfigure --frontend noninteractive tzdata
       - checkout
       - *deploy
 
