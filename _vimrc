@@ -23,25 +23,29 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Set-up CoC
-" Use tab for trigger completion with characters ahead and navigate.
+" Use Tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-" Make <CR> to accept selected completion item or notify coc.nvim to format
+" Use <CR> to accept selected completion item or notify coc.nvim to format
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-" Use <c-space> to trigger completion
+" Use <C-Space> to trigger completion
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Use <C-/> to comment out lines of code.
+nnoremap <C-_> :Commentary<CR>
+xnoremap <C-_> :Commentary<CR>
 
 " Set up fzf as CtrlP
 nmap <C-P> :FZF<CR>
@@ -218,9 +222,9 @@ noremap <silent> k gk
 noremap <silent> j gj
 
 " Ctrl-S saves file
-noremap  <silent> <C-S>  :update<CR>
-vnoremap <silent> <C-S>  <C-C>:update<CR>
-inoremap <silent> <C-S>  <C-O>:update<CR>
+noremap  <silent> <C-S> :update<CR>
+vnoremap <silent> <C-S> <C-C>:update<CR>
+inoremap <silent> <C-S> <C-O>:update<CR>
 
 " ClangFormat
 map <C-F> :pyf /usr/share/clang/clang-format.py<cr>
