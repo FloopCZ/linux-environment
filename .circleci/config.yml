@@ -2,6 +2,13 @@ version: 2
 
 references:
 
+  set_ubuntu_timezone: &set_ubuntu_timezone
+    run:
+      name: Attempt to set timezone without interactive mode in Ubuntu.
+      command: |
+        ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+        dpkg-reconfigure --frontend noninteractive tzdata
+
   deploy: &deploy
     run:
       name: Deploy the environment.
@@ -47,9 +54,8 @@ jobs:
       DEBIAN_FRONTEND: noninteractive
     working_directory: ~/linux-environment
     steps:
-      - ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-      - dpkg-reconfigure --frontend noninteractive tzdata
       - checkout
+      - *set_ubuntu_timezone
       - *deploy
 
   test_archlinux:
