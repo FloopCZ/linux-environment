@@ -18,7 +18,7 @@ if [ "$1" = "--install" ]; then
       # Fedora
       dnf -y install sudo || true
       sudo dnf -y upgrade
-      sudo dnf -y group install 'Development Tools'
+      sudo dnf -y install @development-tools
       sudo dnf -y install util-linux-user direnv
       pacman_bin="dnf -y install"
       pynvim_pkg="python3-neovim"

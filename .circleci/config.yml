@@ -6,7 +6,7 @@ references:
     run:
       name: Deploy the environment.
       command: |
-        ./deploy.sh --install
+        DEBIAN_FRONTEND=noninteractive ./deploy.sh --install
 
   docker_login: &docker_login
     run:
@@ -33,7 +33,7 @@ jobs:
 
   build_dockerfiles:
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2404
     working_directory: ~/linux-environment
     steps:
       - checkout
@@ -43,8 +43,6 @@ jobs:
   test_ubuntu_rolling:
     docker:
       - image: ubuntu:rolling
-    environment:
-      DEBIAN_FRONTEND: noninteractive
     working_directory: ~/linux-environment
     steps:
       - checkout
