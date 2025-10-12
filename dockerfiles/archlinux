@@ -28,8 +28,8 @@ RUN pacman --noconfirm --needed -Syu \
   ipython \
   jupyter-notebook \
   python-ipywidgets \
-  python-ipympl
-  python-pip \
+  python-ipympl \
+  python-pip
 
 # install and configure ssh server
 RUN pacman --noconfirm --needed -Syu openssh
