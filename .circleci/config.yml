@@ -6,8 +6,8 @@ references:
     run:
       name: Attempt to set timezone without interactive mode in Ubuntu.
       command: |
-        ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-        dpkg-reconfigure --frontend noninteractive tzdata
+        DEBIAN_FRONTEND=noninteractive apt-get -y update
+        DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 
   deploy: &deploy
     run:
