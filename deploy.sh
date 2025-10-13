@@ -10,8 +10,6 @@ if [ "$1" = "--install" ]; then
       sudo pacman -S --noconfirm --needed base-devel zsh-completions git
       # Yay
       if ! hash yay 2>/dev/null; then ./bin/aur-install yay-bin --noconfirm --needed; fi
-      # Direnv
-      if ! hash direnv 2>/dev/null; then ./bin/aur-install direnv --noconfirm --needed; fi
       pacman_bin="pacman -S --noconfirm --needed"
       pynvim_pkg="python-pynvim"
   elif hash dnf 2>/dev/null; then
@@ -37,7 +35,8 @@ if [ "$1" = "--install" ]; then
   fi
 
   # install basic packages
-  sudo $pacman_bin git neovim ${pynvim_pkg} zsh tmux htop zip unzip mc xsel curl trash-cli fzf zoxide ripgrep
+  sudo $pacman_bin git neovim ${pynvim_pkg} zsh tmux htop zip unzip \
+                   mc xsel curl trash-cli fzf zoxide ripgrep direnv
 fi
 
 # get submodules
