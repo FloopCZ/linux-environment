@@ -58,6 +58,14 @@ ln -srfv _vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+# install vim and neovim plugins
+if hash vim 2>/dev/null; then
+    vim +PlugInstall +qall
+fi
+if hash nim 2>/dev/null; then
+    nvim +PlugInstall +qall
+fi
+
 # copy ideavim config
 ln -srfv _vimrc ~/.ideavimrc
 
