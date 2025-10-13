@@ -36,7 +36,7 @@ if [ "$1" = "--install" ]; then
 
   # install basic packages
   sudo $pacman_bin git neovim ${pynvim_pkg} zsh tmux htop zip unzip \
-                   mc xsel curl trash-cli fzf zoxide ripgrep direnv
+                   mc xsel curl trash-cli fzf zoxide ripgrep direnv nodejs
 fi
 
 # get submodules
