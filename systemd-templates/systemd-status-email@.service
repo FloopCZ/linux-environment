@@ -5,6 +5,6 @@ Description=Send systemd status for unit %i via email
 
 [Service]
 Type=oneshot
-ExecStart=/home/USER/bin/systemd-status-email ADDRESS %i
+ExecStart=/home/USER/bin/systemd-status-email root@localhost %i
 User=nobody
 Group=systemd-journal
