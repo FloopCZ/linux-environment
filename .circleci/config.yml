@@ -2,6 +2,12 @@ version: 2
 
 references:
 
+  set_ubuntu_timezone: &set_ubuntu_timezone
+    run:
+      name: Attempt to set timezone without interactive mode in Ubuntu.
+      command: |
+        ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+
   deploy: &deploy
     run:
       name: Deploy the environment.
@@ -33,7 +39,7 @@ jobs:
 
   build_dockerfiles:
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2404:current
     working_directory: ~/linux-environment
     steps:
       - checkout
@@ -48,6 +54,7 @@ jobs:
     working_directory: ~/linux-environment
     steps:
       - checkout
+      - *set_ubuntu_timezone
       - *deploy
 
   test_archlinux:

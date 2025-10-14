@@ -50,7 +50,7 @@ __zsh__
 | `Ctrl-c`              | Interrupt command.                                     |
 | `Ctrl-f`              | Expand wildcards to the list of full names.            |
 | `Ctrl-d`              | Exit shell.                                            |
-| `rm`                  | Aliased to `trash` (use `trash-empty` to empty trash and `/bin/rm` for the real `rm`). |
+| `trash`               | Moves file to trash. Use `trash-empty` to empty trash. |
 
 __git__
 

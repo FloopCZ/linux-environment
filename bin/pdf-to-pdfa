@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 [--no-fonts] input-pdf output-pdf"
+  echo "Example: $0 bad.pdf good.pdf"
+  exit 1
+fi
+
+no_fonts=""
+case "$1" in
+  --no-fonts)
+    no_fonts="-dNoOutputFonts"
+    shift
+    ;;
+esac
+
+gs \
+  -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite \
+  -dPDFA=2 \
+  -dPDFACompatibilityPolicy=1 \
+  -dAutoRotatePages=/None \
+  -sColorConversionStrategy=RGB \
+  -dOverrideICC=true \
+  -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dDownsampleColorImages=false \
+  -dAutoFilterGrayImages=false -dGrayImageFilter=/FlateEncode -dDownsampleGrayImages=false \
+  ${no_fonts} \
+  -sOutputFile="$2" "$1"
