@@ -1,5 +1,5 @@
 #!/bin/bash
-dst=${1:-/backup.tar.xz}
+dst=${1:-/backup.tar.zstd}
 
 # A simple script to backup the whole system using tar.
 
@@ -12,12 +12,13 @@ tar --exclude="${dst}" \
     --exclude={"/var/tmp/*","/var/log/*","/var/lib/docker/*","/var/cache/*"} \
     --exclude={"/var/lib/dkms/*","/var/lib/pacman/*","/var/lib/upower/*"} \
     --exclude="*~*" \
-    --iexclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/*cache*/*"} \
-    --iexclude={"/home/*/.config/*/User/*storage*/*","/home/*/.config/*/*logs*/*"} \
+    --exclude={"/home/*/.cache/*","/home/*/.local/*","/home/*/.config/*/*cache*/*"} \
+    --exclude={"/home/*/.config/*/User/*storage*/*","/home/*/.config/*/*logs*/*"} \
     --exclude={"/home/*/.vscode/*","/home/*/.config/google-chrome/*","/home/*/.config/Slack/*"} \
     --exclude={"*/.Trash/*","*/.Trash-*"} \
     --exclude={"/home/*/Downloads/*","/home/*/.wine/*"} \
+    --exclude={"*/steam/library/steamapps/*"} \
     --exclude="/var/lib/dhcpcd/*" \
     --xattrs --acls \
-    -cvpf "${dst}" \
+    --zstd -cvpf "${dst}" \
     /*
