@@ -17,7 +17,7 @@ if [ "$1" = "--install" ]; then
       dnf -y install sudo || true
       sudo dnf -y upgrade
       sudo dnf -y install @development-tools
-      sudo dnf -y install util-linux-user direnv
+      sudo dnf -y install util-linux-user
       pacman_bin="dnf -y install"
       pynvim_pkg="python3-neovim"
   elif hash apt-get 2>/dev/null; then
@@ -27,7 +27,7 @@ if [ "$1" = "--install" ]; then
       apt-get -y install sudo || true
       sudo -E apt-get -y update
       sudo -E apt-get -y upgrade
-      sudo -E apt-get -y install build-essential libpam-systemd direnv
+      sudo -E apt-get -y install build-essential libpam-systemd
       pacman_bin="DEBIAN_FRONTEND=noninteractive apt-get -y install"
       pynvim_pkg="python3-neovim"
   else
