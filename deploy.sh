@@ -85,7 +85,9 @@ current_shell=$(expr "${SHELL:=/bin/false}" : '.*/\(.*\)')
 if [ "$current_shell" != "zsh" ]; then
   zsh_shell="$(grep /zsh$ /etc/shells | tail -1)"
   echo "Changing default shell to ${zsh_shell}"
-  chsh -s "${zsh_shell}"
+  if ! chsh -s "${zsh_shell}"; then
+      echo "ERROR: Cannot change shell, add "exec zsh" to your .bashrc instead."
+  fi
 fi
 
 # copy zsh config

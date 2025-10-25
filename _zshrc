@@ -42,8 +42,9 @@ source "${ZSH}/oh-my-zsh.sh"
 
 # Enable fzf
 if hash fzf 2>/dev/null; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
+    local FZF_ROOT="$(dirname $(which fzf))/.."
+    source "${FZF_ROOT}/share/fzf/key-bindings.zsh"
+    source "${FZF_ROOT}/share/fzf/completion.zsh"
 fi
 
 # Enable direnv
